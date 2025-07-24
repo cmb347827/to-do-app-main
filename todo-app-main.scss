@@ -1,0 +1,305 @@
+@import 'custom.scss';
+@import '_globals.scss';
+
+
+$light-colors: (
+  Very Light Gray: hsl(0, 0%, 98%),
+  Very Light Grayish Blue: hsl(236, 33%, 92%),
+  Light Grayish Blue: hsl(233, 11%, 84%),
+  Dark Grayish Blue: hsl(236, 9%, 61%),
+  Very Dark Grayish Blue: hsl(235, 19%, 35%)
+);
+$fallback-colors-light: (
+  Gray99, Gray87 , Gray82, Gray44, SteelBlue4 
+);
+$dark-colors:(
+  Very Dark Blue: hsl(235, 21%, 11%),
+  Very Dark Desaturated Blue: hsl(235, 24%, 19%),
+  Light Grayish Blue1: hsl(234, 39%, 85%),
+  Light Grayish Blue2: hsl(236, 33%, 92%),
+  Dark Grayish Blue: hsl(234, 11%, 52%),
+  Very Dark Grayish Blue1: hsl(233, 14%, 35%),
+  Very Dark Grayish Blue2: hsl(237, 14%, 26%)
+);
+$fallback-colors-dark: (
+   'Oxford Blue', 'Deep Space Sparkle', Crystal, Cerulean, Charcoal ,RoyalBlue4, 'Prussian Blue'
+);
+
+@mixin font-color($color, $fallback-color) {
+  color: $fallback-color;
+  color: $color;
+}
+
+@mixin bg-color($color, $fallback-color) {
+  background-color: $fallback-color;
+  background-color: $color;
+}
+
+
+@mixin border-radius($radius...) {
+  border-radius: $radius;
+}
+@mixin margin($args...) {
+  margin: $args;
+}
+@mixin padding($args...) {
+  padding: $args;
+}
+.show-error{
+  position:relative;
+  left:0;
+  color:red;
+
+}
+.hide-error{
+   display:none;
+}
+.hide{
+   display:none;
+}
+.show{
+   display: block;
+}
+
+
+.dark{
+    body{
+      @include bg-color(map-get($dark-colors,Very Dark Grayish Blue2),nth($fallback-colors-dark,7));
+       form {
+          #form-body{
+                #container-enter-task{
+                  background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+                  div,#enter-task{
+                    background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+                  }
+                  #enter-task,::placeholder{
+                    @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
+                  }
+                  
+                }
+                #all-tasks{
+                  div,input,textarea{
+                    background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+                    @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
+                  }
+                  .bottom-hr{
+                    color:white;
+                  }
+                }
+                .items-left,ul button{
+                  @include font-color(map-get($dark-colors,Light Grayish Blue1),nth($fallback-colors-dark,3));
+                }
+                .button-parent, .button-parent > *{
+                    background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+                }
+          }
+          .checkbox-round{
+            &:hover{
+                background: linear-gradient(gray, gray) padding-box,
+                linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+            }
+          }
+       }
+       .attribution a ,.attribution span{
+          color: map-get($dark-colors, Light Grayish Blue2);
+       }
+      .cross{
+        filter: brightness(0) saturate(100%) invert(74%) sepia(100%) saturate(3%) hue-rotate(232deg) brightness(107%) contrast(102%);
+      }
+      
+    }
+    
+    header{
+        background: url(./images/bg-mobile-dark.jpg) top center/100% 100% no-repeat ;
+        @include media-breakpoint-up(xxl){
+            background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat ;
+        }
+    }
+    
+}
+
+.light{
+  body{
+    @include bg-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
+     form {
+        #form-body{
+              #container-enter-task{
+                background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
+                div,#enter-task{
+                  background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
+                }
+                #enter-task,::placeholder{
+                  @include font-color(map-get($dark-colors,Very Dark Blue),nth($fallback-colors-dark,1));
+                }
+              
+              }
+              #all-tasks{
+                div,input,textarea{
+                  background-color:lighten(map-get($light-colors, Very Light Grayish Blue),5);
+                  @include font-color(map-get($dark-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
+                }
+                .bottom-hr{
+                  color:white;
+                }
+              }
+              .items-left,ul button,#mobile-clear{
+                  @include font-color(map-get($light-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
+              }
+              .button-parent,.button-parent > * {
+                  background-color:lighten(map-get($light-colors, Very Light Grayish Blue),5);
+              }
+        }
+        .checkbox-round{
+            &:hover{
+                background: linear-gradient(white, white) padding-box,
+                linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+            }
+        }
+     }
+      .cross{
+         filter:brightness(0) saturate(100%) invert(5%) sepia(5%) saturate(6774%) hue-rotate(146deg) brightness(95%) contrast(104%);
+      }
+      .attribution a,.attribution span {
+        color: map-get($light-colors, Dark Grayish Blue);
+      }
+  }
+    header{
+        background: url(./images/bg-mobile-light.jpg) top center/100% 100% no-repeat ;
+        @include media-breakpoint-up(xxl){
+            background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat ;
+        }
+      
+    }
+}
+
+input{
+  -ms-transform: scale(1.4); 
+  -moz-transform: scale(1.4);
+  -webkit-transform: scale(1.4);
+  transform:scale(1.4);
+  border-radius:50%;
+  &:not(:checked) ~ textarea{
+     text-decoration: none;
+  }
+  &:checked{
+    background-image: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+    cursor: pointer;
+    & ~ textarea{
+      text-decoration-line:line-through;
+      color:red;
+    }
+  }
+  &:checked:after{
+     content:'✔';
+     
+     z-index:99;
+     transition: all .2s;
+     position:relative;
+     right:2px;
+     bottom:2px;
+     filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(318%) hue-rotate(154deg) brightness(105%) contrast(104%);
+  }
+}
+
+
+html{
+  box-sizing: border-box; 
+}
+*,
+::before,
+::after {
+  box-sizing: inherit;
+}
+body{
+  
+  font: {
+    //default 16 px/1rem.
+    size: 1.2rem;
+    weight: $font_weight-normal;
+    
+  }
+}
+.top-z-index{
+  //needed for z-index.
+  position: relative;
+  z-index: 1;
+  opacity:1;
+}
+.decorative-circle{
+  width:25px;
+  height: 25px;
+  border: 2px solid gray;
+  border-radius: 50%;
+  margin: auto;
+}
+
+
+main{ 
+      #mobile-clear{
+        display:block;
+      }
+      @media screen and (min-width: 768px) {
+         #desktop-clear  { display: block; }
+         #mobile-clear { display: none; }
+      }
+      .grayish-font{
+        color: map-get($dark-colors, Light Grayish Blue1);
+      }
+      form{
+          padding:0;
+          #form-body,#form-header{
+            width: 90%;
+            max-width:992px;
+            @include margin(0 auto);
+            padding:0;
+            
+          }
+          #form-header{
+            height: 15rem;
+          }
+          #form-body{
+            position:relative;
+            top:-3rem;
+            .task,textarea,ul,#enter-task {
+              border:none;
+            }
+            button{
+              @include font-color(map-get($dark-colors, Light Grayish Blue1),nth($fallback-colors-dark,3));
+              &:hover{
+                 @include font-color(map-get($dark-colors, Light Grayish Blue2),nth($fallback-colors-dark,4));
+              }
+            }
+            .checkbox-round {
+              width: 1.3em;
+              height: 1.3em;
+              background-color: white;
+              border-radius: 50%;
+              vertical-align: middle;
+              border: 1px solid #ddd;
+              appearance: none;
+              -webkit-appearance: none;
+              outline: none;
+              cursor: pointer;
+              &:hover{
+                  border-radius: 50em;
+                  border: 2px solid transparent;
+              }
+            }
+            
+          }
+          
+          hr{
+            padding:0;
+            margin:0;
+          }
+      }
+    
+}
+
+
+#bottom-footer {
+  .attribution {
+    font-size: $font_size-8;
+    text-align: center;
+  }
+}
