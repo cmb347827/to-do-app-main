@@ -26,7 +26,7 @@ let viewType='taskData';
 
 let activeTasks=  loadFromStorage('active-tasks') || [];
 let completedTasks= loadFromStorage('completed-tasks') || [];
-let taskData = [];
+let taskData = loadFromStorage('tasks') ||  [];
 
 function saveToStorage(key,arr){
     //whenever the messages are updated , will be saved in local storage.
@@ -163,8 +163,7 @@ newTaskTextArea.addEventListener('keydown', (event) => {
 //Next two functions: update either activeTasks or completedTasks with new task, as well as taskData
 function getInputArray(which){
     //return the input task array (either active or completed)
-    const remainderArray=taskData.filter(which); 
-    console.log('remainder array in getinput',remainderArray);  
+    const remainderArray=taskData.filter(which);  
     if(remainderArray){
       return remainderArray;
     }
@@ -421,11 +420,13 @@ darkBtn.addEventListener('click',()=>{  //has hide.
 
 $(window).on('load',function(){
     //clearLocalStorage();
-  
+     
     if(taskData.length===0){
        loadDefault();
     }else {
        taskData = loadFromStorage('tasks');
+       activeTasks = loadFromStorage('active-tasks');
+       completedTasks=loadFromStorage('completed-tasks');
     }
     
     
