@@ -24,15 +24,13 @@ const mobileClear=document.getElementById('mobile-clear');
 const largescreenClear=document.getElementById('largescreen-clear');
 let viewType='taskData';
 
-let taskData = JSON.parse(localStorage.getItem("tasks")) || [];
-let activeTasks=  JSON.parse(localStorage.getItem('active-tasks')) || [];
-let completedTasks=  JSON.parse(localStorage.getItem('completed-tasks')) || [];
-
+let activeTasks=  loadFromStorage('active-tasks') || [];
+let completedTasks= loadFromStorage('completed-tasks') || [];
+let taskData = [];
 
 function saveToStorage(key,arr){
     //whenever the messages are updated , will be saved in local storage.
     localStorage.setItem(key,JSON.stringify(arr));//to json string
-    console.log('in savetostorage',activeTasks);
 }
 function loadFromStorage(key){
 	  return JSON.parse(localStorage.getItem(key));  //to js object
@@ -377,7 +375,6 @@ const updateTaskContainer = (data) => {
         
       );
     }
-    console.log('in updatetaskcontainer',activeTasks);
   
 };
 
@@ -428,12 +425,11 @@ darkBtn.addEventListener('click',()=>{  //has hide.
 
 $(window).on('load',function(){
     //clearLocalStorage();
-    // taskData = JSON.parse(localStorage.getItem("tasks")) || [];   
-    //activeTasks = JSON.parse(localStorage.getItem('active-tasks')) || [];
-    //completedTasks = JSON.parse(localStorage.getItem('completed-tasks')) || [];
   
     if(taskData.length===0){
        loadDefault();
+    }else {
+       taskData = loadFromStorage('tasks');
     }
     
     
