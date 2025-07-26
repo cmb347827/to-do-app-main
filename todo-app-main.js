@@ -101,15 +101,18 @@ const addTaskByView=(newtask)=>{
     //viewType is either default taskData or set by the user clicking 'active', 'completed', and 'all' buttons.
     if(viewType==='activeTasks'){
         activeTasks.unshift(newtask);
+        taskData.unshift(newtask);                                                         
         //localStorage.setItem('active-tasks',JSON.stringify(activeTasks));
         saveToStorage('active-tasks',activeTasks);
-         console.log('in addtaskbyview',activeTasks);
+        saveToStorage('tasks',taskData);
         updateTaskContainer(activeTasks);
     }else if(viewType==='completedTasks'){
         newtask.checked=true;
         completedTasks.unshift(newtask);
+        taskData.unshift(newtask);
         //localStorage.setItem('completed-tasks',JSON.stringify(completedTasks));
         saveToStorage('completed-tasks',completedTasks);
+        saveToStorage('tasks',taskData);
         updateTaskContainer(completedTasks);
     }else if(viewType==='taskData'){    
         taskData.unshift(newtask);
@@ -157,27 +160,28 @@ newTaskTextArea.addEventListener('keydown', (event) => {
 
 
 
-//Next two functions: update either active or completed array with new task
+//Next two functions: update either activeTasks or completedTasks with new task, as well as taskData
 function getInputArray(which){
     //return the input task array (either active or completed)
     const remainderArray=taskData.filter(which); 
+    console.log('remainder array in getinput',remainderArray);  
     if(remainderArray){
       return remainderArray;
     }
+  
 }
 
 function taskActions(key,which,arr){
-    console.log('in taskactions 0', arr);
     let remainingInputArray= getInputArray(which);
+
     //below code will update either the active or completed arrays with the new task.
     if(remainingInputArray.length >0 ){
       remainingInputArray.forEach(input=>{
           arr.push(input);
       });
       //localStorage.setItem(key, JSON.stringify(arr));
-      console.log('in taskactions 1', arr);
       saveToStorage(key,arr);
-       console.log('in taskactions 2', arr);
+       console.log('in taskactions ', arr);
     }else{
       //the last task should be either removed from active or completed tasks, whichever was updated
       arr=[];
@@ -278,7 +282,7 @@ function deleteTask(e){
 allBtn.addEventListener('click',(e)=>{
    //setView sets viewType to the current tasks, in this case taskData or after the user presses the all button.
    setView('taskData');
-   taskData = loadFromStorage('tasks');
+   //taskData is not set to an empty array, as taskData values consist of completedTasks and activeTasks values.
    //update list to show all tasks in taskData
    updateTaskContainer(taskData);
 });
@@ -286,14 +290,10 @@ allBtn.addEventListener('click',(e)=>{
 completedBtn.addEventListener('click',(e)=>{
    //setView sets viewType of completedTasks as the user pressed the 'completed' button
    setView('completedTasks');
-   //save completed-tasks before setting completedTasks to an empty array .
-   saveToStorage('completed-tasks',completedTasks);
    //set completedTasks to empty array , to avoid adding to end from possible earlier getItem calls.
    completedTasks=[];
    //check to see which tasks are completed and update completedTasks
    taskActions('completed-tasks',isChecked,completedTasks);
-   completedTasks=loadFromStorage("completed-tasks");
-   //update list shown with newly fetched completedTasks
    updateTaskContainer(completedTasks);
 });
 
@@ -303,14 +303,10 @@ const isNotChecked=(inputEl)=>!inputEl.checked;
 activeBtn.addEventListener('click',(e)=>{
     //setView sets viewType to activeTasks as the user pressed the 'active' button
     setView('activeTasks');
-    //save active-tasks before setting activeTasks to an empty array.
-    saveToStorage('active-tasks',activeTasks);
     //set activeTasks to empty array , to avoid adding to end from possible earlier getItem calls.
     activeTasks=[];
     //check to see which tasks are active and update activeTasks
     taskActions('active-tasks',isNotChecked,activeTasks);
-    activeTasks = loadFromStorage("active-tasks");
-    //update list shown with newly fetched activeTasks
     updateTaskContainer(activeTasks);
 });
 
@@ -375,7 +371,7 @@ const updateTaskContainer = (data) => {
         
       );
     }
-  
+  console.log('in update task container',activeTasks);
 };
 
 lightBtn.addEventListener('click',()=>{
