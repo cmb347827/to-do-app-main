@@ -25,13 +25,14 @@ const largescreenClear=document.getElementById('largescreen-clear');
 let viewType='taskData';
 
 let taskData = JSON.parse(localStorage.getItem("tasks")) || [];
- 
-let activeTasks=  [];
-let completedTasks=  [];
+let activeTasks=  JSON.parse(localStorage.getItem('active-tasks')) || [];
+let completedTasks=  JSON.parse(localStorage.getItem('completed-tasks')) || [];
+
 
 function saveToStorage(key,arr){
     //whenever the messages are updated , will be saved in local storage.
     localStorage.setItem(key,JSON.stringify(arr));//to json string
+    console.log('in savetostorage',activeTasks);
 }
 function loadFromStorage(key){
 	  return JSON.parse(localStorage.getItem(key));  //to js object
@@ -104,6 +105,7 @@ const addTaskByView=(newtask)=>{
         activeTasks.unshift(newtask);
         //localStorage.setItem('active-tasks',JSON.stringify(activeTasks));
         saveToStorage('active-tasks',activeTasks);
+         console.log('in addtaskbyview',activeTasks);
         updateTaskContainer(activeTasks);
     }else if(viewType==='completedTasks'){
         newtask.checked=true;
@@ -159,14 +161,15 @@ newTaskTextArea.addEventListener('keydown', (event) => {
 
 //Next two functions: update either active or completed array with new task
 function getInputArray(which){
-  //return the input task array (either active or completed)
-  const remainderArray=taskData.filter(which); 
-  if(remainderArray){
-     return remainderArray;
-  }
+    //return the input task array (either active or completed)
+    const remainderArray=taskData.filter(which); 
+    if(remainderArray){
+      return remainderArray;
+    }
 }
 
 function taskActions(key,which,arr){
+    console.log('in taskactions 0', arr);
     let remainingInputArray= getInputArray(which);
     //below code will update either the active or completed arrays with the new task.
     if(remainingInputArray.length >0 ){
@@ -174,7 +177,9 @@ function taskActions(key,which,arr){
           arr.push(input);
       });
       //localStorage.setItem(key, JSON.stringify(arr));
+      console.log('in taskactions 1', arr);
       saveToStorage(key,arr);
+       console.log('in taskactions 2', arr);
     }else{
       //the last task should be either removed from active or completed tasks, whichever was updated
       arr=[];
@@ -275,6 +280,7 @@ function deleteTask(e){
 allBtn.addEventListener('click',(e)=>{
    //setView sets viewType to the current tasks, in this case taskData or after the user presses the all button.
    setView('taskData');
+   taskData = loadFromStorage('tasks');
    //update list to show all tasks in taskData
    updateTaskContainer(taskData);
 });
@@ -282,6 +288,8 @@ allBtn.addEventListener('click',(e)=>{
 completedBtn.addEventListener('click',(e)=>{
    //setView sets viewType of completedTasks as the user pressed the 'completed' button
    setView('completedTasks');
+   //save completed-tasks before setting completedTasks to an empty array .
+   saveToStorage('completed-tasks',completedTasks);
    //set completedTasks to empty array , to avoid adding to end from possible earlier getItem calls.
    completedTasks=[];
    //check to see which tasks are completed and update completedTasks
@@ -297,6 +305,8 @@ const isNotChecked=(inputEl)=>!inputEl.checked;
 activeBtn.addEventListener('click',(e)=>{
     //setView sets viewType to activeTasks as the user pressed the 'active' button
     setView('activeTasks');
+    //save active-tasks before setting activeTasks to an empty array.
+    saveToStorage('active-tasks',activeTasks);
     //set activeTasks to empty array , to avoid adding to end from possible earlier getItem calls.
     activeTasks=[];
     //check to see which tasks are active and update activeTasks
@@ -367,7 +377,8 @@ const updateTaskContainer = (data) => {
         
       );
     }
-    
+    console.log('in updatetaskcontainer',activeTasks);
+  
 };
 
 lightBtn.addEventListener('click',()=>{
@@ -417,7 +428,9 @@ darkBtn.addEventListener('click',()=>{  //has hide.
 
 $(window).on('load',function(){
     //clearLocalStorage();
-    taskData = JSON.parse(localStorage.getItem("tasks")) || [];   
+    // taskData = JSON.parse(localStorage.getItem("tasks")) || [];   
+    //activeTasks = JSON.parse(localStorage.getItem('active-tasks')) || [];
+    //completedTasks = JSON.parse(localStorage.getItem('completed-tasks')) || [];
   
     if(taskData.length===0){
        loadDefault();
