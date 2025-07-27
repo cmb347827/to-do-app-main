@@ -30,10 +30,11 @@ let taskData = loadFromStorage('tasks') ||  [];
 
 function saveToStorage(key,arr){
     //whenever the messages are updated , will be saved in local storage.
-    localStorage.setItem(key,JSON.stringify(arr));//to json string
+    localStorage.setItem(key,JSON.stringify(arr));
 }
 function loadFromStorage(key){
-	  return JSON.parse(localStorage.getItem(key));  //to js object
+    //check type , is it json string?
+	  return JSON.parse(localStorage.getItem(key));  
 }
 function clearLocalStorage(){
     localStorage.clear();
@@ -358,6 +359,7 @@ const updateTaskContainer = (data) => {
                     which='';
                    }
                   (tasksDiv.innerHTML += `
+                      <div>
                         <div class="d-flex align-items-center ps-1 pt-1" id="${taskId}">
                           <input onchange='setRemoveChecked(event)' class="form-check-input checkbox-round" type="checkbox" ${which} >
                           <label class='visually-hidden'>Check or uncheck task</label>
@@ -365,6 +367,7 @@ const updateTaskContainer = (data) => {
                           <button onclick='deleteTask(event)' type='button' class='delete-task btn'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
                         </div>
                         <hr class='bottom-hr'>
+                      </div>
                  `)
           }
         
@@ -433,20 +436,8 @@ $(window).on('load',function(){
     //let items = document.querySelector('#all-tasks');  
     Sortable.create(tasksDiv, {      
         animation: 150,               
-        group: "tasks",      
-        store: {          
-           set:(sortable) => {              
-              const order = sortable.toArray();              
-              localStorage.setItem(sortable.options.group.name, order.join('|'));          
-           },          
-           //get list order       
-           get: (sortable) => {              
-             const order = localStorage.getItem(sortable.options.group.name);              
-             return order ? order.split('|') : [];          
-            }      
-        }  
-    });  
-    
+        group: "tasks",  
+    }); 
     updateTaskContainer(taskData);
   
 });
