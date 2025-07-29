@@ -1,5 +1,6 @@
 'use strict'; 
 
+
 $(window).resize(function(){
 	location.reload();
 });
@@ -24,17 +25,21 @@ const mobileClear=document.getElementById('mobile-clear');
 const largescreenClear=document.getElementById('largescreen-clear');
 let viewType='taskData';
 
-let activeTasks=  loadFromStorage('active-tasks') || [];
-let completedTasks= loadFromStorage('completed-tasks') || [];
-let taskData = loadFromStorage('tasks') ||  [];
+let activeTasks=   [];
+let completedTasks= [];
+let taskData =  [];
 
 function saveToStorage(key,arr){
     //whenever the messages are updated , will be saved in local storage.
     localStorage.setItem(key,JSON.stringify(arr));
 }
 function loadFromStorage(key){
-    //check type , is it json string?
-	  return JSON.parse(localStorage.getItem(key));  
+	  let tryget = localStorage.getItem(key);
+    if(tryget){
+        return JSON.parse(tryget);
+    }else{ 
+        return null;
+    }
 }
 function clearLocalStorage(){
     localStorage.clear();
@@ -85,7 +90,6 @@ function loadDefault(){
           //add the new task to the taskData array
           taskData.unshift(newTask);
     });
-     //localStorage.setItem("tasks", JSON.stringify(taskData));  //change to saveToStorage();
      saveToStorage('tasks',taskData);
 }
 
@@ -170,7 +174,6 @@ function getInputArray(which){
     }
   
 }
-
 function taskActions(key,which,arr){
     let remainingInputArray= getInputArray(which);
 
@@ -423,15 +426,16 @@ darkBtn.addEventListener('click',()=>{  //has hide.
 
 $(window).on('load',function(){
     //clearLocalStorage();
-     
-    if(taskData.length===0){
+    let active = loadFromStorage('active-tasks');
+
+    if(active===null){
        loadDefault();
     }else {
        taskData = loadFromStorage('tasks');
        activeTasks = loadFromStorage('active-tasks');
        completedTasks=loadFromStorage('completed-tasks');
     }
-    
+    // any update /add should include 
     
     //let items = document.querySelector('#all-tasks');  
     Sortable.create(tasksDiv, {      
