@@ -426,18 +426,16 @@ darkBtn.addEventListener('click',()=>{  //has hide.
 
 $(window).on('load',function(){
     //clearLocalStorage();
-    let active = loadFromStorage('active-tasks');
+    let data = loadFromStorage('tasks');
 
-    if(active===null){
+    if(data ===null){
        loadDefault();
     }else {
        taskData = loadFromStorage('tasks');
        activeTasks = loadFromStorage('active-tasks');
        completedTasks=loadFromStorage('completed-tasks');
     }
-    // any update /add should include 
     
-    //let items = document.querySelector('#all-tasks');  
     Sortable.create(tasksDiv, {      
         animation: 150,               
         group: "tasks",  
