@@ -13,6 +13,7 @@ const newTaskTextArea = document.getElementById('enter-task');
 const itemsLeft=document.getElementById('js-items-left');
 const completedBtn = document.querySelector('.js-completed-btn');
 const activeBtn = document.querySelector('.js-active-btn');
+const clearBtn = document.querySelector('.js-clear-btn');
 /*const clearCompletedNodeList = document.getElementsByClassName('js-delete-completed-btn');
 const clearCompleted = Array.from(clearCompletedNodeList);*/
 
@@ -22,7 +23,8 @@ const darkBtn = document.getElementById('js-dark-btn');
 const html =document.querySelector('html');
 const errBlank= document.getElementById('blank-error'); 
 const mobileClear=document.getElementById('mobile-clear');
-const largescreenClear=document.getElementById('largescreen-clear');
+//const largescreenClear=document.getElementById('largescreen-clear');
+let sortable='';
 let viewType='taskData';
 
 let activeTasks=   [];
@@ -90,13 +92,15 @@ function loadDefault(){
           //add the new task to the taskData array
           taskData.unshift(newTask);
     });
-     saveToStorage('tasks',taskData);
+    saveToStorage('tasks',taskData);
 }
 
 const setView=(currentview)=>{
     viewType=currentview;
 };
-
+const getView = ()=>{
+     return viewType;
+}
 
 
 
@@ -149,7 +153,7 @@ newTaskTextArea.addEventListener('keydown', (event) => {
                 checked: false,
             }
             //clear the #enter-task textarea
-            newTaskTextArea.value='';
+            newTaskTextArea.value='Create a new todo...';
             //add the new task, works whether user is viewing the 'active' tasks, 'completed' tasks, or all tasks.
             addTaskByView(newTask);
         }
@@ -256,7 +260,6 @@ function setRemoveChecked(event){
 function deleteTask(e){
    //delete the task (when x is clicked to right of task)
    //works whether the user is viewing all tasks, 'active' tasks, or 'completed' tasks
-   console.log('in deletetask');
 
    if(viewType==='taskData'){                                     
         //update shown list with the task deleted
@@ -326,7 +329,7 @@ const clearTodo=()=>{
     saveToStorage('tasks',taskData);
 }
 
-[...document.querySelectorAll('.js-delete-completed-btn')].forEach(btn=>btn.addEventListener('click',(e)=>{
+clearBtn.addEventListener('click',()=>{
     //setView sets viewType to completedTasks as the user pressed the 'Clear Completed' button and should show the empty completed on updateTaskContainer.
     setView('completedTasks');
     //set completedTasks to empty array first
@@ -337,8 +340,7 @@ const clearTodo=()=>{
     clearTodo(); 
     //update list shown with completed removed
     updateTaskContainer(completedTasks);
-}));
-
+});
 
 
 
@@ -362,7 +364,7 @@ const updateTaskContainer = (data) => {
                     which='';
                    }
                   (tasksDiv.innerHTML += `
-                      <div>
+                      <div class='drag-task' draggable="true">
                         <div class="d-flex align-items-center ps-1 pt-1" id="${taskId}">
                           <input onchange='setRemoveChecked(event)' class="form-check-input checkbox-round" type="checkbox" ${which} >
                           <label class='visually-hidden'>Check or uncheck task</label>
@@ -376,7 +378,9 @@ const updateTaskContainer = (data) => {
         
       );
     }
-  console.log('in update task container',activeTasks);
+  addlisteners();
+  const currentOrder = sortable.toArray();  
+  console.log('currentorder',currentOrder);
 };
 
 lightBtn.addEventListener('click',()=>{
@@ -424,6 +428,15 @@ darkBtn.addEventListener('click',()=>{  //has hide.
 });
 
 
+//includes adding listeners to tasks for sort order
+const addlisteners=()=>{
+     [...document.querySelectorAll('.drag-task')].forEach(task=>task.addEventListener('drag',(e)=>{
+        //getview.
+        console.log('in sortable');
+        e.target.classList.add("dragging");
+     }));
+}
+
 $(window).on('load',function(){
     //clearLocalStorage();
     let data = loadFromStorage('tasks');
@@ -435,11 +448,12 @@ $(window).on('load',function(){
        activeTasks = loadFromStorage('active-tasks');
        completedTasks=loadFromStorage('completed-tasks');
     }
-    
-    Sortable.create(tasksDiv, {      
+    //initalize sortable.
+    sortable= Sortable.create(tasksDiv, {      
         animation: 150,               
-        group: "tasks",  
-    }); 
+        group: "tasks", }); 
+        
+    
     updateTaskContainer(taskData);
-  
+    addlisteners();
 });
