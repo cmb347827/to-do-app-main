@@ -24,7 +24,7 @@ const html =document.querySelector('html');
 const errBlank= document.getElementById('blank-error'); 
 const mobileClear=document.getElementById('mobile-clear');
 //const largescreenClear=document.getElementById('largescreen-clear');
-let sortable='';
+let sortable=''; 
 let viewType='taskData';
 
 let activeTasks=   [];
@@ -40,6 +40,7 @@ function loadFromStorage(key){
     if(tryget){
         return JSON.parse(tryget);
     }else{ 
+        //see lines 443-446
         return null;
     }
 }
@@ -98,9 +99,6 @@ function loadDefault(){
 const setView=(currentview)=>{
     viewType=currentview;
 };
-const getView = ()=>{
-     return viewType;
-}
 
 
 
@@ -188,7 +186,6 @@ function taskActions(key,which,arr){
       });
       //localStorage.setItem(key, JSON.stringify(arr));
       saveToStorage(key,arr);
-       console.log('in taskactions ', arr);
     }else{
       //the last task should be either removed from active or completed tasks, whichever was updated
       arr=[];
@@ -356,6 +353,7 @@ const updateTaskContainer = (data) => {
     if(data){
       data.forEach(
           ({ taskId, task ,checked}) => {
+                   
                    if(checked){
                     //whichStyle='text-decoration-line:line-through';
                     which='checked';
@@ -364,14 +362,14 @@ const updateTaskContainer = (data) => {
                     which='';
                    }
                   (tasksDiv.innerHTML += `
-                      <div class='drag-task' draggable="true">
-                        <div class="d-flex align-items-center ps-1 pt-1" id="${taskId}">
-                          <input onchange='setRemoveChecked(event)' class="form-check-input checkbox-round" type="checkbox" ${which} >
-                          <label class='visually-hidden'>Check or uncheck task</label>
-                          <textarea style='${whichStyle}' onchange='updateTask(event)' class="form-control">${task}</textarea>
-                          <button onclick='deleteTask(event)' type='button' class='delete-task btn'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
-                        </div>
-                        <hr class='bottom-hr'>
+                      <div class='drag-task' data-id='${taskId}'>
+                          <div class="d-flex align-items-center ps-1 pt-1" id="${taskId}">
+                            <input onchange='setRemoveChecked(event)' class="form-check-input checkbox-round" type="checkbox" ${which} >
+                            <label class='visually-hidden'>Check or uncheck task</label>
+                            <textarea style='${whichStyle}' onchange='updateTask(event)' class="form-control">${task}</textarea>
+                            <button onclick='deleteTask(event)' type='button' class='delete-task btn'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
+                          </div>
+                          <hr class='bottom-hr'>
                       </div>
                  `)
           }
@@ -379,8 +377,6 @@ const updateTaskContainer = (data) => {
       );
     }
   addlisteners();
-  const currentOrder = sortable.toArray();  
-  console.log('currentorder',currentOrder);
 };
 
 lightBtn.addEventListener('click',()=>{
@@ -428,12 +424,39 @@ darkBtn.addEventListener('click',()=>{  //has hide.
 });
 
 
+
+
+const saveOrder =(e)=>{
+      var order = sortable.toArray();
+      let temp=[];
+      if(viewType==='taskData'){
+          taskData.forEach((task)=>{
+                let index = order.indexOf(task.taskId);
+                 temp[index] = task;
+          });
+          taskData=temp;
+          saveToStorage('tasks',taskData);
+      
+      }else if(viewType==='active-tasks'){
+
+      }else if(viewType==='completed-tasks'){
+
+      }
+}
+
+const saveSort=(e)=>{
+      //get view, save by view.
+      //console.log(e.currentTarget.nextSibling.getAttribute('data-id'));
+      var order = sortable.toArray();
+      //sortable.sort(order);
+      
+      
+}
 //includes adding listeners to tasks for sort order
 const addlisteners=()=>{
-     [...document.querySelectorAll('.drag-task')].forEach(task=>task.addEventListener('drag',(e)=>{
-        //getview.
-        console.log('in sortable');
-        e.target.classList.add("dragging");
+     [...document.querySelectorAll('.drag-task')].forEach(task=>task.addEventListener('dragend',(e)=>{
+         e.target.classList.add("dragging");
+         saveOrder(e);
      }));
 }
 
@@ -451,9 +474,9 @@ $(window).on('load',function(){
     //initalize sortable.
     sortable= Sortable.create(tasksDiv, {      
         animation: 150,               
-        group: "tasks", }); 
+        group: "tasks", 
+    }); 
         
     
     updateTaskContainer(taskData);
-    addlisteners();
 });
