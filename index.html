@@ -12,41 +12,41 @@
 <body   dir="ltr">
   <main>
         
-          <form  method="post" action="#">
-              <header  class="w-100">
-                  <div  id='form-header' class="d-flex align-items-center justify-content-between">
-                    <h1 class="text-white text-uppercase ">To Do</h1>
-                    <button aria-label="dark theme" id='js-dark-btn' class='btn hide' type='button'><svg class='dark' xmlns="http://www.w3.org/2000/svg" width="26" height="26"><path fill="#FFF" fill-rule="evenodd" d="M13 0c.81 0 1.603.074 2.373.216C10.593 1.199 7 5.43 7 10.5 7 16.299 11.701 21 17.5 21c2.996 0 5.7-1.255 7.613-3.268C23.22 22.572 18.51 26 13 26 5.82 26 0 20.18 0 13S5.82 0 13 0z"/></svg></button>
-                    <button aria-label="light theme" id='js-light-btn' class='btn' type='button'><svg  class='light' xmlns="http://www.w3.org/2000/svg" width="26" height="26"><path fill="#FFF" fill-rule="evenodd" d="M13 21a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-5.657-2.343a1 1 0 010 1.414l-2.121 2.121a1 1 0 01-1.414-1.414l2.12-2.121a1 1 0 011.415 0zm12.728 0l2.121 2.121a1 1 0 01-1.414 1.414l-2.121-2.12a1 1 0 011.414-1.415zM13 8a5 5 0 110 10 5 5 0 010-10zm12 4a1 1 0 110 2h-3a1 1 0 110-2h3zM4 12a1 1 0 110 2H1a1 1 0 110-2h3zm18.192-8.192a1 1 0 010 1.414l-2.12 2.121a1 1 0 01-1.415-1.414l2.121-2.121a1 1 0 011.414 0zm-16.97 0l2.121 2.12A1 1 0 015.93 7.344L3.808 5.222a1 1 0 011.414-1.414zM13 0a1 1 0 011 1v3a1 1 0 11-2 0V1a1 1 0 011-1z"/></svg></button>
+          <article>
+              <header>
+                  <div  class="display-flex align-items-flex-start justify-content-space-between article-header">
+                    <h1 class="text-white text-uppercase">To Do</h1>
+                    <button aria-label="dark theme" id='js-dark-btn' class='hide transparent-bg' type='button'><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"><path  fill="#FFF" fill-rule="evenodd" d="M13 0c.81 0 1.603.074 2.373.216C10.593 1.199 7 5.43 7 10.5 7 16.299 11.701 21 17.5 21c2.996 0 5.7-1.255 7.613-3.268C23.22 22.572 18.51 26 13 26 5.82 26 0 20.18 0 13S5.82 0 13 0z"/></svg></button>
+                    <button aria-label="light theme" id='js-light-btn' class='transparent-bg border' type='button'><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"><path fill="#FFF" fill-rule="evenodd" d="M13 21a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-5.657-2.343a1 1 0 010 1.414l-2.121 2.121a1 1 0 01-1.414-1.414l2.12-2.121a1 1 0 011.415 0zm12.728 0l2.121 2.121a1 1 0 01-1.414 1.414l-2.121-2.12a1 1 0 011.414-1.415zM13 8a5 5 0 110 10 5 5 0 010-10zm12 4a1 1 0 110 2h-3a1 1 0 110-2h3zM4 12a1 1 0 110 2H1a1 1 0 110-2h3zm18.192-8.192a1 1 0 010 1.414l-2.12 2.121a1 1 0 01-1.415-1.414l2.121-2.121a1 1 0 011.414 0zm-16.97 0l2.121 2.12A1 1 0 015.93 7.344L3.808 5.222a1 1 0 011.414-1.414zM13 0a1 1 0 011 1v3a1 1 0 11-2 0V1a1 1 0 011-1z"/></svg></button>
                   </div>
               </header>
-              <div id='form-body' class="top-z-index">
-                    <div id="container-enter-task">
-                        <label id='blank-error' class="hide-error form-label" for="enter-task">Please enter a todo , no blank todos</label>
-                        <div class=" d-flex align-items-center ">
-                          <div class="decorative-circle">
+              <div class="top-z-index article-body">
+                    <div class="container-enter-task">
+                          <label id='blank-error' class="hide-error form-label" for="enter-task">Please enter a todo , no blank todos</label>
+                          <div class="display-flex align-items-center">
+                              <div class="decorative-circle border">
+                              </div>
+                              <textarea  placeholder='Create a new todo...' id="enter-task"></textarea>
                           </div>
-                          <textarea class='form-control mt-2' placeholder='Create a new todo...' id="enter-task"></textarea>
-                        </div>
                     </div>
                     
                     <div class='mt-4' id="all-tasks">
                       <!--tasks added dynamically using js-->
                     </div>
-                    <div class="d-flex  flex-column flex-md-row justify-content-around button-parent">   
-                        <div class="d-flex  align-items-center justify-content-around">
+                    <div class="display-flex  flex-column colRow justify-content-space-around button-parent">   
+                        <div class="display-flex  align-items-center justify-content-around">
                             <p class="items-left mt-2"><span id='js-items-left'>0</span> items left</p>
-                            <button id="mobile-clear"  class='btn js-delete-completed-btn' type='button'>Clear Completed</button>
+                            <button id="mobile-clear"  class='js-delete-completed-btn transparent-bg' type='button'>Clear Completed</button>
                         </div>
-                        <ul id='bottom-buttons' class="d-flex  justify-content-center  align-items-between nav nav-tabs">
-                            <li class="nav-item"><button class='btn text-primary js-all-btn' type='button'>All</button></li>
-                            <li class="nav-item"><button class='btn js-active-btn'  type='button'>Active</button></li>
-                            <li class="nav-item"><button class='btn js-completed-btn'  type='button'>Completed</button></li>
-                            <li id='desktop-clear' class="hide nav-item"><button class='btn js-clear-btn' type='button'>Clear Completed</button></li>
+                        <ul id='bottom-buttons' class="display-flex  justify-content-center  align-items-between nav nav-tabs">
+                            <li class="nav-item"><button class='js-all-btn transparent-bg' type='button'>All</button></li>
+                            <li class="nav-item"><button class='js-active-btn transparent-bg'  type='button'>Active</button></li>
+                            <li class="nav-item"><button class='js-completed-btn transparent-bg'  type='button'>Completed</button></li>
+                            <li id='desktop-clear' class="hide nav-item"><button class='js-clear-btn transparent-bg' type='button'>Clear Completed</button></li>
                         </ul>
                     </div>
               </div>
-          </form>
+          </article>
           <p class="text-center grayish-font">Drag and drop to reorder list</p>
   </main>
   <footer id='bottom-footer'>

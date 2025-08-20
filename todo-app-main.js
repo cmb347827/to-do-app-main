@@ -169,12 +169,10 @@ newTaskTextArea.addEventListener('keydown', (event) => {
 
 //Next two functions: update either activeTasks or completedTasks with new task, as well as taskData
 function getInputArray(which){
-    //return the input task array (either active or completed)
     const remainderArray=taskData.filter(which);  
     if(remainderArray){
       return remainderArray;
     }
-  
 }
 function taskActions(key,which,arr){
     let remainingInputArray= getInputArray(which);
@@ -363,11 +361,11 @@ const updateTaskContainer = (data) => {
                    }
                   (tasksDiv.innerHTML += `
                       <div class='drag-task' data-id='${taskId}'>
-                          <div class="d-flex align-items-center ps-1 pt-1" id="${taskId}">
-                            <input onchange='setRemoveChecked(event)' class="form-check-input checkbox-round" type="checkbox" ${which} >
+                          <div class="display-flex align-items-center padding-half" id="${taskId}">
+                            <input onchange='setRemoveChecked(event)' class="checkbox-round me-1" type="checkbox" ${which} >
                             <label class='visually-hidden'>Check or uncheck task</label>
-                            <textarea style='${whichStyle}' onchange='updateTask(event)' class="form-control">${task}</textarea>
-                            <button onclick='deleteTask(event)' type='button' class='delete-task btn'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
+                            <textarea style='${whichStyle}' onchange='updateTask(event)' class="">${task}</textarea>
+                            <button onclick='deleteTask(event)' type='button' class='delete-task btn transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
                           </div>
                           <hr class='bottom-hr'>
                       </div>
@@ -425,9 +423,10 @@ darkBtn.addEventListener('click',()=>{  //has hide.
 
 
 
-
+//next two functions are for saving the order in 'all' view when the user reorders the tasks.
 const saveOrder =(e)=>{
-      var order = sortable.toArray();
+
+      const order = sortable.toArray();
       let temp=[];
       if(viewType==='taskData'){
           taskData.forEach((task)=>{
@@ -436,22 +435,9 @@ const saveOrder =(e)=>{
           });
           taskData=temp;
           saveToStorage('tasks',taskData);
-      
-      }else if(viewType==='active-tasks'){
-
-      }else if(viewType==='completed-tasks'){
-
       }
 }
 
-const saveSort=(e)=>{
-      //get view, save by view.
-      //console.log(e.currentTarget.nextSibling.getAttribute('data-id'));
-      var order = sortable.toArray();
-      //sortable.sort(order);
-      
-      
-}
 //includes adding listeners to tasks for sort order
 const addlisteners=()=>{
      [...document.querySelectorAll('.drag-task')].forEach(task=>task.addEventListener('dragend',(e)=>{
@@ -476,7 +462,6 @@ $(window).on('load',function(){
         animation: 150,               
         group: "tasks", 
     }); 
-        
     
     updateTaskContainer(taskData);
 });

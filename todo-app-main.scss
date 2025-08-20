@@ -1,5 +1,6 @@
-@import 'custom.scss';
+
 @import '_globals.scss';
+@import '_flexgrid.scss';
 
 
 $light-colors: (
@@ -60,58 +61,91 @@ $fallback-colors-dark: (
 .show{
    display: block;
 }
+.text-center{
+  text-align:center;
+}
+.text-white{
+   color: white;
+}
+.text-uppercase{
+   text-transform:uppercase;
+}
+//see https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
+.visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}
+textarea{
+    width: 100%;
+    margin:0;
+}
+.transparent-bg{
+    background-color: transparent;
+    border:none;
+}
+.padding-half{
+   padding:0.5em 0;
 
+}
 
 .dark{
-    body{
-      @include bg-color(map-get($dark-colors,Very Dark Grayish Blue2),nth($fallback-colors-dark,7));
-       form {
-          #form-body{
-                #container-enter-task{
+    
+       @include bg-color(map-get($dark-colors,Very Dark Grayish Blue2),nth($fallback-colors-dark,7));
+       
+        .article-body{
+              .container-enter-task{
                   background-color:map-get($dark-colors, Very Dark Grayish Blue1);
                   div,#enter-task{
                     background-color:map-get($dark-colors, Very Dark Grayish Blue1);
                   }
                   #enter-task,::placeholder{
-                    @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
+                     @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
                   }
-                  
+                
+              }
+              #all-tasks{
+                div,input,textarea{
+                     background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+                     @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
                 }
-                #all-tasks{
-                  div,input,textarea{
-                    background-color:map-get($dark-colors, Very Dark Grayish Blue1);
-                    @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
-                  }
-                  .bottom-hr{
-                    color:white;
-                  }
-                }
-                .items-left,ul button{
-                  @include font-color(map-get($dark-colors,Light Grayish Blue1),nth($fallback-colors-dark,3));
-                }
-                .button-parent, .button-parent > *{
-                    background-color:map-get($dark-colors, Very Dark Grayish Blue1);
-                }
+              }
+              .items-left,ul button{
+                @include font-color(map-get($dark-colors,Light Grayish Blue1),nth($fallback-colors-dark,3));
+              }
+              .button-parent, .button-parent > *{
+                  background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+              }
+        }
+        .checkbox-round{
+          &:hover{
+              background: linear-gradient(gray, gray) padding-box,
+              linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
           }
-          .checkbox-round{
-            &:hover{
-                background: linear-gradient(gray, gray) padding-box,
-                linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
-            }
-          }
+        }
+       hr{
+          border-color:#717070;
        }
        .attribution a ,.attribution span{
           color: map-get($dark-colors, Light Grayish Blue2);
        }
-      .cross{
-        filter: brightness(0) saturate(100%) invert(74%) sepia(100%) saturate(3%) hue-rotate(232deg) brightness(107%) contrast(102%);
-      }
-      
-    }
+       .cross{
+             filter:invert(21%) sepia(3%) saturate(3650%) hue-rotate(199deg) brightness(95%) contrast(89%);
+          
+        }
+       .padding-half:hover{
+           .cross{
+              filter: brightness(0) saturate(100%) invert(74%) sepia(100%) saturate(3%) hue-rotate(232deg) brightness(107%) contrast(102%);
+           }
+       }
     
     header{
         background: url(./images/bg-mobile-dark.jpg) top center/100% 100% no-repeat ;
-        @include media-breakpoint-up(xxl){
+        @media screen and (min-width: 48em){
             background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat ;
         }
     }
@@ -119,27 +153,24 @@ $fallback-colors-dark: (
 }
 
 .light{
-  body{
-    @include bg-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
-     form {
-        #form-body{
-              #container-enter-task{
-                background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
-                div,#enter-task{
-                  background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
-                }
-                #enter-task,::placeholder{
-                  @include font-color(map-get($dark-colors,Very Dark Blue),nth($fallback-colors-dark,1));
-                }
+  
+        @include bg-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
+     
+        .article-body{
+              .container-enter-task{
+                 background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
+                 div,#enter-task{
+                   background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
+                 }
+                 #enter-task,::placeholder{
+                   @include font-color(map-get($dark-colors,Very Dark Blue),nth($fallback-colors-dark,1));
+                 }
               
               }
               #all-tasks{
                 div,input,textarea{
                   background-color:lighten(map-get($light-colors, Very Light Grayish Blue),5);
                   @include font-color(map-get($dark-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
-                }
-                .bottom-hr{
-                  color:white;
                 }
               }
               .items-left,ul button,#mobile-clear{
@@ -155,29 +186,43 @@ $fallback-colors-dark: (
                 linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
             }
         }
-     }
-      .cross{
-         filter:brightness(0) saturate(100%) invert(5%) sepia(5%) saturate(6774%) hue-rotate(146deg) brightness(95%) contrast(104%);
+       .cross{
+           filter: invert(99%) sepia(49%) saturate(35%) hue-rotate(192deg) brightness(117%) contrast(96%);
+       }
+      .padding-half:hover{
+          .cross{
+            filter:brightness(0) saturate(100%) invert(5%) sepia(5%) saturate(6774%) hue-rotate(146deg) brightness(95%) contrast(104%);
+          }
+       }
+      hr{
+         border:none;
+         border-bottom: 1px solid rgb(219, 219, 219)[]
       }
       .attribution a,.attribution span {
         color: map-get($light-colors, Dark Grayish Blue);
       }
-  }
     header{
         background: url(./images/bg-mobile-light.jpg) top center/100% 100% no-repeat ;
-        @include media-breakpoint-up(xxl){
+        @media screen and (min-width: 48em){
             background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat ;
         }
       
     }
 }
 
+h1{
+   padding:0;
+   margin:0;
+}
+
 input{
-  -ms-transform: scale(1.4); 
-  -moz-transform: scale(1.4);
-  -webkit-transform: scale(1.4);
-  transform:scale(1.4);
+  -ms-transform: scale(1.7); 
+  -moz-transform: scale(1.7);
+  -webkit-transform: scale(1.7);
+  transform:scale(1.7);
   border-radius:50%;
+  margin-left: 1em;
+
   &:not(:checked) ~ textarea{
      text-decoration: none;
   }
@@ -186,7 +231,6 @@ input{
     cursor: pointer;
     & ~ textarea{
       text-decoration-line:line-through;
-      color:red;
     }
   }
   &:checked:after{
@@ -195,8 +239,7 @@ input{
      z-index:99;
      transition: all .2s;
      position:relative;
-     right:2px;
-     bottom:2px;
+     left: 20%;
      filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(318%) hue-rotate(154deg) brightness(105%) contrast(104%);
   }
 }
@@ -226,11 +269,11 @@ body{
   opacity:1;
 }
 .decorative-circle{
-  width:25px;
-  height: 25px;
-  border: 2px solid gray;
+  width:30px;
+  height: 30px;
+  border: 1px solid gray;
   border-radius: 50%;
-  margin: auto;
+  margin: 0.5em 0em 0em 0.5em;
 }
 
 .dragging{
@@ -247,21 +290,26 @@ main{
       .grayish-font{
         color: map-get($dark-colors, Light Grayish Blue1);
       }
-      form{
+      article{
+          .container-enter-task{
+             margin-bottom: 3em;
+             padding: 0.5em;
+          }
           padding:0;
-          #form-body,#form-header{
+          .article-body,.article-header{
             width: 90%;
             max-width:992px;
             @include margin(0 auto);
             padding:0;
             
           }
-          #form-header{
-            height: 15rem;
+          .article-header{
+            padding-top: 1em;
+            height: 18rem;
           }
-          #form-body{
+          .article-body{
             position:relative;
-            top:-3rem;
+            top:-9rem;
             .task,textarea,ul,#enter-task {
               border:none;
             }
@@ -293,6 +341,10 @@ main{
           hr{
             padding:0;
             margin:0;
+            
+          }
+          ul li{
+              list-style-type: none;
           }
       }
     
