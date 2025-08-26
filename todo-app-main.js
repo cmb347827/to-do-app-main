@@ -5,27 +5,26 @@ $(window).resize(function(){
 	location.reload();
 });
 
-//Uncaught SyntaxError: Unexpected token 'b', "bh5|alf|2a"... is not valid JSON
-// at JSON.parse (<anonymous>)
-
 const tasksDiv = document.getElementById("all-tasks");
 const newTaskTextArea = document.getElementById('enter-task');
 const itemsLeft=document.getElementById('js-items-left');
 const completedBtn = document.querySelector('.js-completed-btn');
 const activeBtn = document.querySelector('.js-active-btn');
 const clearBtn = document.querySelector('.js-clear-btn');
-/*const clearCompletedNodeList = document.getElementsByClassName('js-delete-completed-btn');
-const clearCompleted = Array.from(clearCompletedNodeList);*/
 
 const allBtn=document.querySelector('.js-all-btn');
 const lightBtn=document.getElementById('js-light-btn');
 const darkBtn = document.getElementById('js-dark-btn');
 const html =document.querySelector('html');
-const errBlank= document.getElementById('blank-error'); 
-const mobileClear=document.getElementById('mobile-clear');
-//const largescreenClear=document.getElementById('largescreen-clear');
+
+//the keys for localstorage.
+const tasks = 'todo-app-main-*&*=^^&*@%$!?-tasks';
+const active = 'todo-app-main-$@#&*(!?@$%-active';
+const completed= 'todo-app-main@!#$%^&*(#$%@!^%-completed';
+
 let sortable=''; 
 let viewType='taskData';
+
 
 let activeTasks=   [];
 let completedTasks= [];
@@ -93,7 +92,7 @@ function loadDefault(){
           //add the new task to the taskData array
           taskData.unshift(newTask);
     });
-    saveToStorage('tasks',taskData);
+    saveToStorage(tasks,taskData);
 }
 
 const setView=(currentview)=>{
@@ -110,21 +109,21 @@ const addTaskByView=(newtask)=>{
         activeTasks.unshift(newtask);
         taskData.unshift(newtask);                                                         
         //localStorage.setItem('active-tasks',JSON.stringify(activeTasks));
-        saveToStorage('active-tasks',activeTasks);
-        saveToStorage('tasks',taskData);
+        saveToStorage(active,activeTasks);
+        saveToStorage(tasks,taskData);
         updateTaskContainer(activeTasks);
     }else if(viewType==='completedTasks'){
         newtask.checked=true;
         completedTasks.unshift(newtask);
         taskData.unshift(newtask);
         //localStorage.setItem('completed-tasks',JSON.stringify(completedTasks));
-        saveToStorage('completed-tasks',completedTasks);
-        saveToStorage('tasks',taskData);
+        saveToStorage(completed,completedTasks);
+        saveToStorage(tasks,taskData);
         updateTaskContainer(completedTasks);
     }else if(viewType==='taskData'){    
         taskData.unshift(newtask);
         //localStorage.setItem("tasks", JSON.stringify(taskData)); 
-        saveToStorage('tasks',taskData);                    
+        saveToStorage(tasks,taskData);                    
         updateTaskContainer(taskData); 
     }
 }
@@ -203,7 +202,7 @@ function updateTask(event){
               if(task.taskId===event.currentTarget.parentElement.id){
                  task.task = event.currentTarget.value;
                  //localStorage.setItem("tasks", JSON.stringify(taskData));
-                 saveToStorage('tasks',taskData);
+                 saveToStorage(tasks,taskData);
               }
         });
     }
@@ -212,7 +211,7 @@ function updateTask(event){
               if(task.taskId===event.currentTarget.parentElement.id){
                   task.task = event.currentTarget.value;
                   //localStorage.setItem("active-tasks", JSON.stringify(activeTasks)); 
-                  saveToStorage('active-tasks',activeTasks);
+                  saveToStorage(active,activeTasks);
               }
         });
    } else if(viewType==='completedTasks'){
@@ -220,7 +219,7 @@ function updateTask(event){
               if(task.taskId===event.currentTarget.parentElement.id){
                   task.task = event.currentTarget.value;
                   //localStorage.setItem("completed-tasks", JSON.stringify(completedTasks)); 
-                  saveToStorage('completed-tasks',completedTasks);
+                  saveToStorage(completed,completedTasks);
               }
         });
    }
@@ -246,7 +245,7 @@ function setRemoveChecked(event){
         }
     });
     //localStorage.setItem('tasks', JSON.stringify(taskData));
-    saveToStorage('tasks',taskData);
+    saveToStorage(tasks,taskData);
     //displays the number of active tasks
     const activeArr= taskData.filter(isNotChecked);
     itemsLeft.textContent = activeArr.length;
@@ -260,18 +259,18 @@ function deleteTask(e){
         //update shown list with the task deleted
          taskData= taskData.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
          //localStorage.setItem('tasks', JSON.stringify(taskData));  
-          saveToStorage('tasks',taskData);
+          saveToStorage(tasks,taskData);
           updateTaskContainer(taskData);                                                                 
     } else if(viewType==='activeTasks'){
           activeTasks= activeTasks.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
           //localStorage.setItem('active-tasks', JSON.stringify(activeTasks));  
-          saveToStorage('active-tasks',activeTasks);                                     
+          saveToStorage(active,activeTasks);                                     
           //update shown list with the task deleted
           updateTaskContainer(activeTasks); 
     } else if(viewType==='completedTasks'){
           completedTasks= completedTasks.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
           //localStorage.setItem('completed-tasks', JSON.stringify(completedTasks));  
-          saveToStorage('completed-tasks',completedTasks);                                     
+          saveToStorage(completed,completedTasks);                                     
           //update shown list with the task deleted
           updateTaskContainer(completedTasks); 
     }
@@ -294,7 +293,7 @@ completedBtn.addEventListener('click',(e)=>{
    //set completedTasks to empty array , to avoid adding to end from possible earlier getItem calls.
    completedTasks=[];
    //check to see which tasks are completed and update completedTasks
-   taskActions('completed-tasks',isChecked,completedTasks);
+   taskActions(completed,isChecked,completedTasks);
    updateTaskContainer(completedTasks);
 });
 
@@ -307,7 +306,7 @@ activeBtn.addEventListener('click',(e)=>{
     //set activeTasks to empty array , to avoid adding to end from possible earlier getItem calls.
     activeTasks=[];
     //check to see which tasks are active and update activeTasks
-    taskActions('active-tasks',isNotChecked,activeTasks);
+    taskActions(active,isNotChecked,activeTasks);
     updateTaskContainer(activeTasks);
 });
 
@@ -321,7 +320,7 @@ const clearTodo=()=>{
         }
     });
     //localStorage.setItem("tasks", JSON.stringify(taskData));
-    saveToStorage('tasks',taskData);
+    saveToStorage(tasks,taskData);
 }
 
 clearBtn.addEventListener('click',()=>{
@@ -330,7 +329,7 @@ clearBtn.addEventListener('click',()=>{
     //set completedTasks to empty array first
     completedTasks=[];
     //localStorage.setItem('completed-tasks', JSON.stringify('completed-tasks'));
-    saveToStorage('completed-tasks',completedTasks);
+    saveToStorage(completed,completedTasks);
     //in clearTodo() filter out checked tasks and update taskData.
     clearTodo(); 
     //update list shown with completed removed
@@ -434,7 +433,7 @@ const saveOrder =(e)=>{
                  temp[index] = task;
           });
           taskData=temp;
-          saveToStorage('tasks',taskData);
+          saveToStorage(tasks,taskData);
       }
 }
 
@@ -448,14 +447,14 @@ const addlisteners=()=>{
 
 $(window).on('load',function(){
     //clearLocalStorage();
-    let data = loadFromStorage('tasks');
+    let data = loadFromStorage(tasks);
 
     if(data ===null){
        loadDefault();
     }else {
-       taskData = loadFromStorage('tasks');
-       activeTasks = loadFromStorage('active-tasks');
-       completedTasks=loadFromStorage('completed-tasks');
+       taskData = loadFromStorage(tasks);
+       activeTasks = loadFromStorage(active);
+       completedTasks=loadFromStorage(completed);
     }
     //initalize sortable.
     sortable= Sortable.create(tasksDiv, {      
