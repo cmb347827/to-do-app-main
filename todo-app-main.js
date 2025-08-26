@@ -446,7 +446,7 @@ const addlisteners=()=>{
 }
 
 $(window).on('load',function(){
-    clearLocalStorage();
+    //clearLocalStorage();
     let data = loadFromStorage('todo-app-main-*&*=^^&*@%$!?-tasks');
 
     if(data ===null){
