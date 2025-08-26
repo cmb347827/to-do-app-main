@@ -92,7 +92,7 @@ function loadDefault(){
           //add the new task to the taskData array
           taskData.unshift(newTask);
     });
-    saveToStorage(tasks,taskData);
+    saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
 }
 
 const setView=(currentview)=>{
@@ -109,21 +109,21 @@ const addTaskByView=(newtask)=>{
         activeTasks.unshift(newtask);
         taskData.unshift(newtask);                                                         
         //localStorage.setItem('active-tasks',JSON.stringify(activeTasks));
-        saveToStorage(active,activeTasks);
-        saveToStorage(tasks,taskData);
+        saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);
+        saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
         updateTaskContainer(activeTasks);
     }else if(viewType==='completedTasks'){
         newtask.checked=true;
         completedTasks.unshift(newtask);
         taskData.unshift(newtask);
         //localStorage.setItem('completed-tasks',JSON.stringify(completedTasks));
-        saveToStorage(completed,completedTasks);
-        saveToStorage(tasks,taskData);
+        saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);
+        saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
         updateTaskContainer(completedTasks);
     }else if(viewType==='taskData'){    
         taskData.unshift(newtask);
         //localStorage.setItem("tasks", JSON.stringify(taskData)); 
-        saveToStorage(tasks,taskData);                    
+        saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);                    
         updateTaskContainer(taskData); 
     }
 }
@@ -202,7 +202,7 @@ function updateTask(event){
               if(task.taskId===event.currentTarget.parentElement.id){
                  task.task = event.currentTarget.value;
                  //localStorage.setItem("tasks", JSON.stringify(taskData));
-                 saveToStorage(tasks,taskData);
+                 saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
               }
         });
     }
@@ -211,7 +211,7 @@ function updateTask(event){
               if(task.taskId===event.currentTarget.parentElement.id){
                   task.task = event.currentTarget.value;
                   //localStorage.setItem("active-tasks", JSON.stringify(activeTasks)); 
-                  saveToStorage(active,activeTasks);
+                  saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);
               }
         });
    } else if(viewType==='completedTasks'){
@@ -219,7 +219,7 @@ function updateTask(event){
               if(task.taskId===event.currentTarget.parentElement.id){
                   task.task = event.currentTarget.value;
                   //localStorage.setItem("completed-tasks", JSON.stringify(completedTasks)); 
-                  saveToStorage(completed,completedTasks);
+                  saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);
               }
         });
    }
@@ -245,7 +245,7 @@ function setRemoveChecked(event){
         }
     });
     //localStorage.setItem('tasks', JSON.stringify(taskData));
-    saveToStorage(tasks,taskData);
+    saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
     //displays the number of active tasks
     const activeArr= taskData.filter(isNotChecked);
     itemsLeft.textContent = activeArr.length;
@@ -259,18 +259,18 @@ function deleteTask(e){
         //update shown list with the task deleted
          taskData= taskData.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
          //localStorage.setItem('tasks', JSON.stringify(taskData));  
-          saveToStorage(tasks,taskData);
+          saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
           updateTaskContainer(taskData);                                                                 
     } else if(viewType==='activeTasks'){
           activeTasks= activeTasks.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
           //localStorage.setItem('active-tasks', JSON.stringify(activeTasks));  
-          saveToStorage(active,activeTasks);                                     
+          saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);                                     
           //update shown list with the task deleted
           updateTaskContainer(activeTasks); 
     } else if(viewType==='completedTasks'){
           completedTasks= completedTasks.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
           //localStorage.setItem('completed-tasks', JSON.stringify(completedTasks));  
-          saveToStorage(completed,completedTasks);                                     
+          saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);                                     
           //update shown list with the task deleted
           updateTaskContainer(completedTasks); 
     }
@@ -293,7 +293,7 @@ completedBtn.addEventListener('click',(e)=>{
    //set completedTasks to empty array , to avoid adding to end from possible earlier getItem calls.
    completedTasks=[];
    //check to see which tasks are completed and update completedTasks
-   taskActions(completed,isChecked,completedTasks);
+   taskActions('todo-app-main@!#$%^&*(#$%@!^%-completed',isChecked,completedTasks);
    updateTaskContainer(completedTasks);
 });
 
@@ -306,7 +306,7 @@ activeBtn.addEventListener('click',(e)=>{
     //set activeTasks to empty array , to avoid adding to end from possible earlier getItem calls.
     activeTasks=[];
     //check to see which tasks are active and update activeTasks
-    taskActions(active,isNotChecked,activeTasks);
+    taskActions('todo-app-main-$@#&*(!?@$%-active',isNotChecked,activeTasks);
     updateTaskContainer(activeTasks);
 });
 
@@ -320,7 +320,7 @@ const clearTodo=()=>{
         }
     });
     //localStorage.setItem("tasks", JSON.stringify(taskData));
-    saveToStorage(tasks,taskData);
+    saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
 }
 
 clearBtn.addEventListener('click',()=>{
@@ -329,7 +329,7 @@ clearBtn.addEventListener('click',()=>{
     //set completedTasks to empty array first
     completedTasks=[];
     //localStorage.setItem('completed-tasks', JSON.stringify('completed-tasks'));
-    saveToStorage(completed,completedTasks);
+    saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);
     //in clearTodo() filter out checked tasks and update taskData.
     clearTodo(); 
     //update list shown with completed removed
@@ -433,7 +433,7 @@ const saveOrder =(e)=>{
                  temp[index] = task;
           });
           taskData=temp;
-          saveToStorage(tasks,taskData);
+          saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
       }
 }
 
@@ -446,15 +446,15 @@ const addlisteners=()=>{
 }
 
 $(window).on('load',function(){
-    //clearLocalStorage();
-    let data = loadFromStorage(tasks);
+    clearLocalStorage();
+    let data = loadFromStorage('todo-app-main-*&*=^^&*@%$!?-tasks');
 
     if(data ===null){
        loadDefault();
     }else {
-       taskData = loadFromStorage(tasks);
-       activeTasks = loadFromStorage(active);
-       completedTasks=loadFromStorage(completed);
+       taskData = loadFromStorage('todo-app-main-*&*=^^&*@%$!?-tasks');
+       activeTasks = loadFromStorage('todo-app-main-$@#&*(!?@$%-active');
+       completedTasks=loadFromStorage('todo-app-main@!#$%^&*(#$%@!^%-completed');
     }
     //initalize sortable.
     sortable= Sortable.create(tasksDiv, {      
