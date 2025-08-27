@@ -404,6 +404,7 @@ const lighten=()=>{
 vars.lightBtn.addEventListener('click',()=>{
       lighten();
       localStorage.setItem('todo-app-main-@$$#@^%(*-lighten','true');
+      
 });
 
 const darken=()=>{
@@ -461,9 +462,7 @@ const addlisteners=()=>{
 }
 
 $(window).on('load',function(){
-    const islighten = localStorage.getItem('todo-app-main-@$$#@^%(*-lighten');
     
-    (islighten==='true') ? lighten() : darken();
     
     let data = loadFromStorage('todo-app-main-*&*=^^&*@%$!?-tasks');
 
@@ -474,6 +473,9 @@ $(window).on('load',function(){
        activeTasks = loadFromStorage('todo-app-main-$@#&*(!?@$%-active');
        completedTasks=loadFromStorage('todo-app-main@!#$%^&*(#$%@!^%-completed');
     }
+    const islighten = localStorage.getItem('todo-app-main-@$$#@^%(*-lighten');
+    
+    (islighten==='true') ? lighten() : darken();
     //initalize sortable.
     sortable= Sortable.create(vars.tasksdiv, {      
         animation: 150,               
