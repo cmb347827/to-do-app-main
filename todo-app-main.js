@@ -473,14 +473,15 @@ $(window).on('load',function(){
        activeTasks = loadFromStorage('todo-app-main-$@#&*(!?@$%-active');
        completedTasks=loadFromStorage('todo-app-main@!#$%^&*(#$%@!^%-completed');
     }
+    updateTaskContainer(taskData);
+
     const islighten = localStorage.getItem('todo-app-main-@$$#@^%(*-lighten');
-    
     (islighten==='true') ? lighten() : darken();
+
     //initalize sortable.
     sortable= Sortable.create(vars.tasksdiv, {      
         animation: 150,               
         group: "tasks", 
     }); 
     
-    updateTaskContainer(taskData);
 });
