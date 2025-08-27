@@ -94,7 +94,12 @@ textarea{
 }
 
 .dark{
-    
+        header{
+            background: url(./images/bg-mobile-dark.jpg) top center/100% 100% no-repeat ;
+            @media screen and (min-width: 48em){
+                background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat ;
+            }
+       }
        @include bg-color(map-get($dark-colors,Very Dark Grayish Blue2),nth($fallback-colors-dark,7));
        
         .article-body{
@@ -143,16 +148,16 @@ textarea{
            }
        }
     
-    header{
-        background: url(./images/bg-mobile-dark.jpg) top center/100% 100% no-repeat ;
-        @media screen and (min-width: 48em){
-            background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat ;
-        }
-    }
-    
 }
 
 .light{
+      header{
+          background: url(./images/bg-mobile-light.jpg) top center/100% 100% no-repeat ;
+          @media screen and (min-width: 48em){
+              background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat ;
+          }
+      
+       }
   
         @include bg-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
      
@@ -201,13 +206,7 @@ textarea{
       .attribution a,.attribution span {
         color: map-get($light-colors, Dark Grayish Blue);
       }
-    header{
-        background: url(./images/bg-mobile-light.jpg) top center/100% 100% no-repeat ;
-        @media screen and (min-width: 48em){
-            background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat ;
-        }
-      
-    }
+    
 }
 
 h1{
