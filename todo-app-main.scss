@@ -276,14 +276,25 @@ body{
   margin: 0.5em 0em 0em 0.5em;
 }
 
-.dragging{
-     background-color:pink;
+ button{
+      padding: 0.5em;
+      border-radius: 14px;
+      @include font-color(map-get($dark-colors, Very Dark Grayish Blue),nth($fallback-colors-dark,5));
+      &:hover{
+          @include font-color(map-get($dark-colors, Light Grayish Blue2),nth($fallback-colors-dark,4));
+      }
+}
+textarea{
+     padding: 0.2em;
+     @media screen and(min-width: 48em){
+        padding:1em;
+     }
 }
 main{ 
       #mobile-clear{
         display:block;
       }
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width:48em) {
          #desktop-clear  { display: block; }
          #mobile-clear { display: none; }
       }
@@ -313,12 +324,7 @@ main{
             .task,textarea,ul,#enter-task {
               border:none;
             }
-            button{
-              @include font-color(map-get($dark-colors, Light Grayish Blue1),nth($fallback-colors-dark,3));
-              &:hover{
-                 @include font-color(map-get($dark-colors, Light Grayish Blue2),nth($fallback-colors-dark,4));
-              }
-            }
+           
             .checkbox-round {
               width: 1.3em;
               height: 1.3em;

@@ -292,12 +292,23 @@ body {
   border-radius: 50%;
   margin: 0.5em 0em 0em 0.5em; }
 
-.dragging {
-  background-color: pink; }
+button {
+  padding: 0.5em;
+  border-radius: 14px;
+  color: Charcoal; }
+  button:hover {
+    color: Cerulean;
+    color: #e4e5f1; }
+
+textarea {
+  padding: 0.2em; }
+  @media screen and (min-width: 48em) {
+    textarea {
+      padding: 1em; } }
 
 main #mobile-clear {
   display: block; }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 48em) {
   main #desktop-clear {
     display: block; }
   main #mobile-clear {
@@ -322,12 +333,6 @@ main article {
     top: -9rem; }
     main article .article-body .task, main article .article-body textarea, main article .article-body ul, main article .article-body #enter-task {
       border: none; }
-    main article .article-body button {
-      color: Crystal;
-      color: #cacde8; }
-      main article .article-body button:hover {
-        color: Cerulean;
-        color: #e4e5f1; }
     main article .article-body .checkbox-round {
       width: 1.3em;
       height: 1.3em;
