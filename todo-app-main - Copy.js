@@ -5,27 +5,22 @@ $(window).resize(function(){
 	location.reload();
 });
 
-const vars ={
-    tasksdiv : document.getElementById("all-tasks"),
-    itemsleft: document.getElementById('js-items-left'),
-    newTaskTextArea : document.getElementById('enter-task'),
-    completedBtn : document.querySelector('.js-completed-btn'),
-    activeBtn : document.querySelector('.js-active-btn'),
-    clearBtn : document.querySelector('.js-clear-btn'),
-    allBtn: document.querySelector('.js-all-btn'),
-    lightBtn:document.getElementById('js-light-btn'),
-    darkBtn : document.getElementById('js-dark-btn'),
-    html :document.querySelector('html'),
-    reset : document.querySelector('.js-reset-btn')
-}
+const tasksDiv = document.getElementById("all-tasks");
+const newTaskTextArea = document.getElementById('enter-task');
+const itemsLeft=document.getElementById('js-items-left');
+const completedBtn = document.querySelector('.js-completed-btn');
+const activeBtn = document.querySelector('.js-active-btn');
+const clearBtn = document.querySelector('.js-clear-btn');
+
+const allBtn=document.querySelector('.js-all-btn');
+const lightBtn=document.getElementById('js-light-btn');
+const darkBtn = document.getElementById('js-dark-btn');
+const html =document.querySelector('html');
 
 //the keys for localstorage.
 const tasks = 'todo-app-main-*&*=^^&*@%$!?-tasks';
 const active = 'todo-app-main-$@#&*(!?@$%-active';
 const completed= 'todo-app-main@!#$%^&*(#$%@!^%-completed';
-//light/dark key
-const light='todo-app-main-@$$#@^%(*-lighten';
-
 
 let sortable=''; 
 let viewType='taskData';
@@ -133,10 +128,10 @@ const addTaskByView=(newtask)=>{
     }
 }
 
-vars.newTaskTextArea.addEventListener('keydown', (event) => {
+newTaskTextArea.addEventListener('keydown', (event) => {
   const regex = /\S/;
   //prevents the user from entering nothing 
-  let passed = regex.test(vars.newTaskTextArea.value);
+  let passed = regex.test(newTaskTextArea.value);
 
   //user presses enter key 
   if (event.key === 'Enter' && passed) {
@@ -146,7 +141,7 @@ vars.newTaskTextArea.addEventListener('keydown', (event) => {
             $('#blank-error').addClass('hide-error');
         }
         //on user presses the enter key in 'create a new todo' textarea, get the new todo textarea value.
-        const newTaskValue =vars.newTaskTextArea.value.trim();
+        const newTaskValue =newTaskTextArea.value.trim();
         if(newTaskValue){
             //create a new task object
             const newTask ={
@@ -155,7 +150,7 @@ vars.newTaskTextArea.addEventListener('keydown', (event) => {
                 checked: false,
             }
             //clear the #enter-task textarea
-            vars.newTaskTextArea.value='Create a new todo...';
+            newTaskTextArea.value='Create a new todo...';
             //add the new task, works whether user is viewing the 'active' tasks, 'completed' tasks, or all tasks.
             addTaskByView(newTask);
         }
@@ -253,7 +248,7 @@ function setRemoveChecked(event){
     saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
     //displays the number of active tasks
     const activeArr= taskData.filter(isNotChecked);
-    vars.itemsleft.textContent = activeArr.length;
+    itemsLeft.textContent = activeArr.length;
 }
 
 function deleteTask(e){
@@ -284,7 +279,7 @@ function deleteTask(e){
 
 
 // all , active and completed button functions................
-vars.allBtn.addEventListener('click',(e)=>{
+allBtn.addEventListener('click',(e)=>{
    //setView sets viewType to the current tasks, in this case taskData or after the user presses the all button.
    setView('taskData');
    //taskData is not set to an empty array, as taskData values consist of completedTasks and activeTasks values.
@@ -292,7 +287,7 @@ vars.allBtn.addEventListener('click',(e)=>{
    updateTaskContainer(taskData);
 });
 
-vars.completedBtn.addEventListener('click',(e)=>{
+completedBtn.addEventListener('click',(e)=>{
    //setView sets viewType of completedTasks as the user pressed the 'completed' button
    setView('completedTasks');
    //set completedTasks to empty array , to avoid adding to end from possible earlier getItem calls.
@@ -305,7 +300,7 @@ vars.completedBtn.addEventListener('click',(e)=>{
 const isChecked=(inputEl)=>inputEl.checked;
 const isNotChecked=(inputEl)=>!inputEl.checked;
 
-vars.activeBtn.addEventListener('click',(e)=>{
+activeBtn.addEventListener('click',(e)=>{
     //setView sets viewType to activeTasks as the user pressed the 'active' button
     setView('activeTasks');
     //set activeTasks to empty array , to avoid adding to end from possible earlier getItem calls.
@@ -328,7 +323,7 @@ const clearTodo=()=>{
     saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
 }
 
-vars.clearBtn.addEventListener('click',()=>{
+clearBtn.addEventListener('click',()=>{
     //setView sets viewType to completedTasks as the user pressed the 'Clear Completed' button and should show the empty completed on updateTaskContainer.
     setView('completedTasks');
     //set completedTasks to empty array first
@@ -347,10 +342,11 @@ vars.clearBtn.addEventListener('click',()=>{
 const updateTaskContainer = (data) => {
     //displays the number of active tasks
     const activeArr= taskData.filter(isNotChecked);
-    vars.itemsleft.textContent = activeArr.length;
+    itemsLeft.textContent = activeArr.length;
+    
 
     let which; let whichStyle;
-    vars.tasksdiv.innerHTML='';
+    tasksDiv.innerHTML = "";
     if(data){
       data.forEach(
           ({ taskId, task ,checked}) => {
@@ -362,7 +358,7 @@ const updateTaskContainer = (data) => {
                     whichStyle={};
                     which='';
                    }
-                  (vars.tasksdiv.innerHTML += `
+                  (tasksDiv.innerHTML += `
                       <div class='drag-task' data-id='${taskId}'>
                           <div class="display-flex align-items-center padding-half" id="${taskId}">
                             <input onchange='setRemoveChecked(event)' class="checkbox-round me-1" type="checkbox" ${which} >
@@ -380,56 +376,48 @@ const updateTaskContainer = (data) => {
   addlisteners();
 };
 
-const lighten=()=>{
-     if($(vars.darkBtn).hasClass('hide')){
-      $(vars.darkBtn).removeClass('hide');
-      $(vars.lightBtn).addClass('hide');
+lightBtn.addEventListener('click',()=>{
+    if($(darkBtn).hasClass('hide')){
+      $(darkBtn).removeClass('hide');
+      $(lightBtn).addClass('hide');
     }
-    if($(vars.lightBtn).hasClass('show')){
-      $(vars.lightBtn).removeClass('show');
-      $(vars.darkBtn).addClass('show');
+    if($(lightBtn).hasClass('show')){
+      $(lightBtn).removeClass('show');
+      $(darkBtn).addClass('show');
     }
-    if($(vars.html).hasClass('dark')){
-      $(vars.html).removeClass('dark');
-      $(vars.html).addClass('light');
+    if($(html).hasClass('dark')){
+      $(html).removeClass('dark');
+      $(html).addClass('light');
     }
-      vars.darkBtn.disable=false;
-      vars.darkBtn.setAttribute('aria-hidden','false');
-      vars.darkBtn.setAttribute('aria-disabled','false');
+      darkBtn.disable=false;
+      darkBtn.setAttribute('aria-hidden','false');
+      darkBtn.setAttribute('aria-disabled','false');
 
-      vars.lightBtn.disable=true;
-      vars.lightBtn.setAttribute('aria-hidden','true');
-      vars.lightBtn.setAttribute('aria-disabled','true');
-}
-vars.lightBtn.addEventListener('click',()=>{
-      lighten();
-      localStorage.setItem('todo-app-main-@$$#@^%(*-lighten','true');
+      lightBtn.disable=true;
+      lightBtn.setAttribute('aria-hidden','true');
+      lightBtn.setAttribute('aria-disabled','true');
 });
 
-const darken=()=>{
-      if($(vars.lightBtn).hasClass('hide')){
-        $(vars.lightBtn).removeClass('hide');
-        $(vars.darkBtn).addClass('hide');
+darkBtn.addEventListener('click',()=>{  //has hide.
+      if($(lightBtn).hasClass('hide')){
+        $(lightBtn).removeClass('hide');
+        $(darkBtn).addClass('hide');
       }
-      if($(vars.darkBtn).hasClass('show')){
-        $(vars.darkBtn).removeClass('show');
-        $(vars.lightBtn).addClass('show');
+      if($(darkBtn).hasClass('show')){
+        $(darkBtn).removeClass('show');
+        $(lightBtn).addClass('show');
       }
-      if($(vars.html).hasClass('light')){
-        $(vars.html).removeClass('light');
-        $(vars.html).addClass('dark');
+      if($(html).hasClass('light')){
+        $(html).removeClass('light');
+        $(html).addClass('dark');
       }
-       vars.lightBtn.disable=false;
-       vars.lightBtn.setAttribute('aria-hidden','false');
-       vars.lightBtn.setAttribute('aria-disabled','false');
+       lightBtn.disable=false;
+       lightBtn.setAttribute('aria-hidden','false');
+       lightBtn.setAttribute('aria-disabled','false');
 
-       $(vars.darkBtn).disable=true;
-       vars.darkBtn.setAttribute('aria-hidden','true');
-       vars.darkBtn.setAttribute('aria-disabled','true');
-}
-vars.darkBtn.addEventListener('click',()=>{  //has hide.
-       darken();
-       localStorage.setItem('todo-app-main-@$$#@^%(*-lighten','false');
+       $(darkBtn).disable=true;
+       darkBtn.setAttribute('aria-hidden','true');
+       darkBtn.setAttribute('aria-disabled','true');
 });
 
 
@@ -455,16 +443,10 @@ const addlisteners=()=>{
          e.target.classList.add("dragging");
          saveOrder(e);
      }));
-     vars.reset.addEventListener('click',()=>{
-         clearLocalStorage();
-     });
 }
 
 $(window).on('load',function(){
-    const islighten = localStorage.getItem('todo-app-main-@$$#@^%(*-lighten');
-    
-    (islighten==='true') ? lighten() : darken();
-    
+    //clearLocalStorage();
     let data = loadFromStorage('todo-app-main-*&*=^^&*@%$!?-tasks');
 
     if(data ===null){
@@ -475,7 +457,7 @@ $(window).on('load',function(){
        completedTasks=loadFromStorage('todo-app-main@!#$%^&*(#$%@!^%-completed');
     }
     //initalize sortable.
-    sortable= Sortable.create(vars.tasksdiv, {      
+    sortable= Sortable.create(tasksDiv, {      
         animation: 150,               
         group: "tasks", 
     }); 
