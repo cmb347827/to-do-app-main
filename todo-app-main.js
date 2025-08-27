@@ -468,12 +468,14 @@ $(window).on('load',function(){
 
     if(data ===null){
        loadDefault();
+       updateTaskContainer(taskData);
     }else {
        taskData = loadFromStorage('todo-app-main-*&*=^^&*@%$!?-tasks');
+       updateTaskContainer(taskData);
        activeTasks = loadFromStorage('todo-app-main-$@#&*(!?@$%-active');
        completedTasks=loadFromStorage('todo-app-main@!#$%^&*(#$%@!^%-completed');
     }
-    updateTaskContainer(taskData);
+    
 
     const islighten = localStorage.getItem('todo-app-main-@$$#@^%(*-lighten');
     (islighten==='true') ? lighten() : darken();
