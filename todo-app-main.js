@@ -349,7 +349,7 @@ const updateTaskContainer = (data) => {
     const activeArr= taskData.filter(isNotChecked);
     vars.itemsleft.textContent = activeArr.length;
 
-    let which; let whichStyle;
+    let which; 
     vars.tasksdiv.innerHTML='';
     if(data){
       data.forEach(
@@ -359,7 +359,6 @@ const updateTaskContainer = (data) => {
                     //whichStyle='text-decoration-line:line-through';
                     which='checked';
                    }else{
-                    whichStyle={};
                     which='';
                    }
                   (vars.tasksdiv.innerHTML += `
@@ -367,7 +366,7 @@ const updateTaskContainer = (data) => {
                           <div class="display-flex align-items-center padding-half" id="${taskId}">
                             <input onchange='setRemoveChecked(event)' class="checkbox-round me-1" type="checkbox" ${which} >
                             <label class='visually-hidden'>Check or uncheck task</label>
-                            <textarea style='${whichStyle}' onchange='updateTask(event)' class="">${task}</textarea>
+                            <textarea onchange='updateTask(event)' class="">${task}</textarea>
                             <button onclick='deleteTask(event)' type='button' class='delete-task btn transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
                           </div>
                           <hr class='bottom-hr'>
@@ -461,7 +460,7 @@ const addlisteners=()=>{
      });
 }
 
-$(window).on('load',function(){
+window.onload = function(){
     
     
     let data = loadFromStorage('todo-app-main-*&*=^^&*@%$!?-tasks');
@@ -486,4 +485,4 @@ $(window).on('load',function(){
         group: "tasks", 
     }); 
     
-});
+};
