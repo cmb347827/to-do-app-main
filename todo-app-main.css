@@ -28,6 +28,9 @@
   left: 0;
   color: red; }
 
+h1 {
+  font-size: 2em; }
+
 .hide-error {
   display: none; }
 

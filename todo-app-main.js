@@ -364,7 +364,7 @@ const updateTaskContainer = (data) => {
                   (vars.tasksdiv.innerHTML += `
                       <div data-id='${taskId}'>
                           <div class="display-flex align-items-center">
-                            <input onchange='setRemoveChecked(event)' class="checkbox-round me-1" type="checkbox" ${which} class="${taskId}">
+                            <input onchange='setRemoveChecked(event)' class="checkbox-round me-1 ${taskId}" type="checkbox" ${which} >
                             <label for='${taskId}' class='visually-hidden'>Check or uncheck task</label>
                             
                             <textarea aria-label='Add task' onchange='updateTask(event)'>${task}</textarea>
