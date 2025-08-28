@@ -1,6 +1,30 @@
 
-@import '_globals.scss';
-//@import '_flexgrid.scss';
+
+ .display-flex{
+      display:flex;
+  }
+  .align-items-flex-start{
+      align-items:flex-start;
+  }
+  .align-items-center{
+      align-items:center;
+  }
+  .justify-content-center{
+      justify-content:center;
+  }
+  .justify-content-space-between{
+      justify-content: space-between;
+  }
+  .justify-content-space-around{
+      justify-content:space-around;
+  }
+  .colRow{
+      flex-direction:column;
+      @media screen and (min-width:52.31em){                    
+            flex-direction:row;
+      }
+  }
+
 
 
 $light-colors: (
@@ -83,48 +107,107 @@ $fallback-colors-dark: (
 textarea{
     width: 100%;
     margin:0;
-     padding: 0.3em;
-     @media screen and(min-width: 48em){
-        padding:1.2em;
-     }
+    padding: 0.5em;
+    @media screen and(min-width: 48em){
+        padding:1em;
+    }
 }
 .transparent-bg{
     background-color: transparent;
     border:none;
 }
+.padding-half{
+   padding:0.5em 0;
 
+}
+
+.dark{
+    
+       @include bg-color(map-get($dark-colors,Very Dark Grayish Blue2),nth($fallback-colors-dark,7));
+       
+        
+          .container-enter-task{
+              background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+              div,#enter-task{
+                background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+              }
+              #enter-task,::placeholder{
+                  @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
+              }
+            
+          }
+          #all-tasks{
+            div,input,textarea{
+                  background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+                  @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
+            }
+          }
+          .items-left,ul button{
+            @include font-color(map-get($dark-colors,Light Grayish Blue1),nth($fallback-colors-dark,3));
+          }
+          .button-parent, .button-parent > *{
+              background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+          }
+        
+        .checkbox-round{
+          &:hover{
+              background: linear-gradient(gray, gray) padding-box,
+              linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+          }
+        }
+       hr{
+          border-color:#717070;
+       }
+       .attribution a ,.attribution span{
+          color: map-get($dark-colors, Light Grayish Blue2);
+       }
+       .cross{
+             filter:invert(21%) sepia(3%) saturate(3650%) hue-rotate(199deg) brightness(95%) contrast(89%);
+          
+        }
+       .padding-half:hover{
+           .cross{
+              filter: brightness(0) saturate(100%) invert(74%) sepia(100%) saturate(3%) hue-rotate(232deg) brightness(107%) contrast(102%);
+           }
+       }
+    
+    header{
+        background: url(./images/bg-mobile-dark.jpg) top center/100% 100% no-repeat ;
+        @media screen and (min-width: 48em){
+            background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat ;
+        }
+    }
+    
+}
 
 .light{
-      header{
-          background: url(./images/bg-mobile-light.jpg) top center/100% 100% no-repeat ;
-          @media screen and (min-width: 48em){
-              background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat ;
-          }
-      
-       }
   
         @include bg-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
      
-        .article-body{
-              .container-enter-task,div,#enter-task{
-                   background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
-                   #enter-task,::placeholder{
-                     @include font-color(map-get($dark-colors,Very Dark Blue),nth($fallback-colors-dark,1));
-                   }
+        
+          .container-enter-task{
+              background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
+              div,#enter-task{
+                background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
               }
-              #all-tasks{
-                div,input,textarea{
-                  background-color:lighten(map-get($light-colors, Very Light Grayish Blue),5);
-                  @include font-color(map-get($dark-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
-                }
+              #enter-task,::placeholder{
+                @include font-color(map-get($dark-colors,Very Dark Blue),nth($fallback-colors-dark,1));
               }
-              .items-left,ul button,#mobile-clear{
-                  @include font-color(map-get($light-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
-              }
-              .button-parent,.button-parent > * {
-                  background-color:lighten(map-get($light-colors, Very Light Grayish Blue),5);
-              }
-        }
+          
+          }
+          #all-tasks{
+            div,input,textarea{
+              background-color:lighten(map-get($light-colors, Very Light Grayish Blue),5);
+              @include font-color(map-get($dark-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
+            }
+          }
+          .items-left,ul button,#mobile-clear{
+              @include font-color(map-get($light-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
+          }
+          .button-parent,.button-parent > * {
+              background-color:lighten(map-get($light-colors, Very Light Grayish Blue),5);
+          }
+        
         .checkbox-round{
             &:hover{
                 background: linear-gradient(white, white) padding-box,
@@ -146,7 +229,13 @@ textarea{
       .attribution a,.attribution span {
         color: map-get($light-colors, Dark Grayish Blue);
       }
-    
+    header{
+        background: url(./images/bg-mobile-light.jpg) top center/100% 100% no-repeat ;
+        @media screen and (min-width: 48em){
+            background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat ;
+        }
+      
+    }
 }
 
 h1{
@@ -197,7 +286,7 @@ body{
   font: {
     //default 16 px/1rem.
     size: 1.2rem;
-    weight: $font_weight-normal;
+    weight: 400;
     
   }
 }
@@ -215,20 +304,14 @@ body{
   margin: 0.5em 0em 0em 0.5em;
 }
 
- button{
-      padding: 0.5em;
-      border-radius: 14px;
-      @include font-color(map-get($dark-colors, Very Dark Grayish Blue),nth($fallback-colors-dark,5));
-      &:hover{
-          @include font-color(map-get($dark-colors, Light Grayish Blue2),nth($fallback-colors-dark,4));
-      }
+.dragging{
+     background-color:pink;
 }
-
 main{ 
       #mobile-clear{
         display:block;
       }
-      @media screen and (min-width:48em) {
+      @media screen and (min-width: 768px) {
          #desktop-clear  { display: block; }
          #mobile-clear { display: none; }
       }
@@ -258,7 +341,12 @@ main{
             .task,textarea,ul,#enter-task {
               border:none;
             }
-           
+            button{
+              @include font-color(map-get($dark-colors, Light Grayish Blue1),nth($fallback-colors-dark,3));
+              &:hover{
+                 @include font-color(map-get($dark-colors, Light Grayish Blue2),nth($fallback-colors-dark,4));
+              }
+            }
             .checkbox-round {
               width: 1.3em;
               height: 1.3em;
@@ -293,7 +381,7 @@ main{
 
 #bottom-footer {
   .attribution {
-    font-size: $font_size-8;
+    font-size: 10px;
     text-align: center;
   }
 }

@@ -65,7 +65,7 @@ Users should be able to:
   - I wasn't sure if it was the idea that dragging and dropping would also save the new order, but drag/drop works at least. I tried saving drag/drop with a tutorial , but it does not seem to work.
   - I learned about e.currentTarget.parentElement from a stackoverflow post (can't find the post as I forgot to bookmark it) , and that was most helpful for me being able to finish this project.  I'm also now learning in a freecodecamp tutorial about event.target/e.target , which seems even simpler.
   - I also focused on streamlining loading time by adding critical css (above the fold , or in this case first load) in the html head and the rest in the scss file (loaded with defer). Before I did this change performance , for desktop, was 93%, after it was 92%?
-    Still all very confusing.
+    Still all very confusing. I undid this change after that. 
   - When I ran lighthouse, it complained about 'render blocking request' errors.
   - On finding bugs in this app, I also removed bootstrap. Which all sounds simple, but this took a while. The bugs alone kept giving me errors , I think from what I remember , the loadfromstorage function.  I should add errors and fixes to the readme file from now on , as I go , I tend to add most at the end. 
 
