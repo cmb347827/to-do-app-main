@@ -366,8 +366,8 @@ const updateTaskContainer = (data) => {
                           <div class="display-flex align-items-center">
                             <input onchange='setRemoveChecked(event)' class="checkbox-round me-1" type="checkbox" ${which} class="${taskId}">
                             <label for='${taskId}' class='visually-hidden'>Check or uncheck task</label>
-                            <label for='${taskId}x' class='visually-hidden'>Enter a task</label>
-                            <textarea onchange='updateTask(event)' class="${taskId}x">${task}</textarea>
+                            
+                            <textarea aria-label='Add task' onchange='updateTask(event)'>${task}</textarea>
                             <button aria-label='delete task' onclick='deleteTask(event)' type='button' class='delete-task transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
                           </div>
                           <hr class='bottom-hr'>
