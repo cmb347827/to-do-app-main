@@ -6,11 +6,87 @@
   <meta name="description" content="A todo app site , for active/completed tasks">
   
   <link rel="icon" type="image/png" sizes="32x32" href="https://i.postimg.cc/yxgKFKLM/favicon-32x32.png">
-  <link blocking='render' rel='stylesheet' href='todo-app-main.css' type='text/css'>
-  <!--link rel="preload" as="image" href="./images/bg-mobile-dark.jpg" media="(width <= 48em)" >
-  <link rel="preload" as="image" href="./images/bg-desktop-dark.jpg" media="(width > 48em)">
+  <style>
+       
+        .display-flex{
+           display:flex;
+        }
+        .align-items-flex-start{
+           align-items:flex-start;
+        }
+        .align-items-center{
+           align-items:center;
+        }
+        .justify-content-center{
+           justify-content:center;
+        }
+        .justify-content-space-between{
+           justify-content: space-between;
+        }
+        .justify-content-space-around{
+           justify-content:space-around;
+        }
+        .colRow{
+           flex-direction:column;
+            @media screen and (min-width:52.31em){                    
+                  flex-direction:row;
+            }
+        }
 
-  <link blocking='render' rel="preconnect" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+       .dark{
+            header{
+                background: url(./images/bg-mobile-dark.jpg) top center/100% 100% no-repeat ;
+                @media screen and (min-width: 48em){
+                    background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat ;
+                }
+            }
+           background-color: hsl(237, 14%, 26%);
+            .containter-enter-task{
+                background-color: hsl(233, 14%, 35%);
+            }
+            #enter-task,::placeholder{
+              
+              color: hsl(233, 11%, 84%);
+            }
+            
+            .article-body div,input,textarea{
+                background-color: hsl(233, 14%, 35%);
+                color: hsl(0, 0%, 98%);     
+            }
+            .items-left,ul button{
+               color: hsl(233, 14%, 35%);
+            }
+            .button-parent, .button-parent > *{
+               background-color: hsl(233, 14%, 35%);
+            }
+            .checkbox-round{
+                  &:hover{
+                      background: linear-gradient(gray, gray) padding-box,
+                      linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+                  }
+            }
+            hr{
+               border-color:#717070;
+            }
+            .attribution a ,.attribution span{
+              color: hsl(237, 14%, 26%);
+            }
+            .cross{
+                filter:invert(21%) sepia(3%) saturate(3650%) hue-rotate(199deg) brightness(95%) contrast(89%);
+          
+            }
+            .padding-half:hover{
+                .cross{
+                    filter: brightness(0) saturate(100%) invert(74%) sepia(100%) saturate(3%) hue-rotate(232deg) brightness(107%) contrast(102%);
+                }
+            } 
+       }
+  </style>
+  <link blocking='render' defer rel='stylesheet' href='todo-app-main.css' type='text/css'>
+  <link rel="preload" as="image" href="./images/bg-mobile-dark.jpg" media="(width <= 48em)" >
+  <link rel="preload" as="image" href="./images/bg-desktop-dark.jpg" media="(width > 48em)">
+  
+  <!--link blocking='render' rel="preconnect" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js">
   <link blocking='render' rel="dns-prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js">
   <link rel="preload" href="todo-app-main.js" as="script" /-->
   <title>Frontend Mentor | Todo app</title>
@@ -41,12 +117,12 @@
                     <div class='mt-4' id="all-tasks">
                       <!--tasks added dynamically using js-->
                     </div>
-                    <div class="display-flex  flex-column colRow justify-content-space-around button-parent">   
-                        <div class="display-flex  align-items-center justify-content-around">
-                            <p class="items-left mt-2"><span id='js-items-left'>0</span> items left</p>
+                    <div class="display-flex colRow justify-content-space-around button-parent">   
+                        <div class="display-flex  align-items-center justify-content-space-around">
+                            <p class="items-left"><span id='js-items-left'>0</span> items left</p>
                             <button id="mobile-clear"  class='js-delete-completed-btn transparent-bg' type='button'>Clear Completed</button>
                         </div>
-                        <ul id='bottom-buttons' class="display-flex  justify-content-center  align-items-between nav nav-tabs">
+                        <ul id='bottom-buttons' class="display-flex  justify-content-center nav nav-tabs">
                             <li class="nav-item"><button class='js-all-btn transparent-bg' type='button'>All</button></li>
                             <li class="nav-item"><button class='js-active-btn transparent-bg'  type='button'>Active</button></li>
                             <li class="nav-item"><button class='js-completed-btn transparent-bg'  type='button'>Completed</button></li>

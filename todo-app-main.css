@@ -1,133 +1,4 @@
 @charset "UTF-8";
-.display-flex {
-  display: flex; }
-
-.direction-row {
-  flex-direction: row; }
-
-.direction-column {
-  flex-direction: column; }
-
-.no-wrap {
-  flex-wrap: nowrap; }
-
-.wrap {
-  flex-wrap: wrap; }
-
-.column-wrap {
-  flex-flow: column wrap; }
-
-.justify-content-center {
-  justify-content: center; }
-
-.justify-content-start {
-  justify-content: flex-start; }
-
-.justify-content-space-between {
-  justify-content: space-between; }
-
-.justify-content-space-around {
-  justify-content: space-around; }
-
-@media screen and (min-width: 52.31em) {
-  .justify-content-md-space-between {
-    justify-content: space-between; } }
-
-@media screen and (min-width: 52.31em) {
-  .justify-content-md-center {
-    justify-content: center; } }
-
-@media screen and (min-width: 52.31em) {
-  .justify-content-md-space-around {
-    justify-content: space-around; } }
-
-@media screen and (min-width: 52.31em) {
-  .justify-content-md-start {
-    justify-content: flex-start; } }
-
-.align-items-center {
-  align-items: center; }
-
-.align-items-flex-start {
-  align-items: flex-start; }
-
-.align-items-stretch {
-  align-items: stretch; }
-
-.align-content-center {
-  align-content: center; }
-
-.align-content-stretch {
-  align-content: stretch; }
-
-.align-content-between {
-  align-content: space-between; }
-
-.align-self-start {
-  align-self: flex-start; }
-
-.flex-1 {
-  flex: 1; }
-
-.flex-basis-25 {
-  flex-basis: 25%; }
-
-.flex-basis-40 {
-  flex-basis: 40%; }
-
-.flex-basis-50 {
-  flex-basis: 50%; }
-
-.flex-basis-100 {
-  flex-basis: 100%; }
-
-.flex-grow-2 {
-  flex-grow: 2; }
-
-.flex-shrink-2 {
-  flex-shrink: 2; }
-
-@media screen and (min-width: 52.31em) {
-  .me-2-md {
-    margin-right: 2em; } }
-
-@media screen and (min-width: 52.31em) {
-  .me-1-md {
-    margin-right: 1em; } }
-
-.me-2 {
-  margin-right: 2em; }
-
-.me-1 {
-  margin-right: 1em; }
-
-.me-half {
-  margin-right: 0.5em; }
-
-.colRow {
-  flex-direction: column; }
-  @media screen and (min-width: 52.31em) {
-    .colRow {
-      flex-direction: row; } }
-
-.colRow-l {
-  flex-direction: column; }
-  @media screen and (min-width: 75em) {
-    .colRow-l {
-      flex-direction: row; } }
-
-.rowCol {
-  flex-direction: row; }
-  @media screen and (min-width: 52.31em) {
-    .rowCol {
-      flex-direction: column; } }
-
-.rowCol-1 {
-  flex-direction: row; }
-  @media screen and (max-width: 23.43em) {
-    .rowCol-1 {
-      flex-direction: column; } }
-
 .show-error {
   position: relative;
   left: 0;
@@ -162,49 +33,15 @@
 
 textarea {
   width: 100%;
-  margin: 0; }
+  margin: 0;
+  padding: 0.3em; }
+  @media screen and (min-width: 48em) {
+    textarea {
+      padding: 1.2em; } }
 
 .transparent-bg {
   background-color: transparent;
   border: none; }
-
-.padding-half {
-  padding: 0.5em 0; }
-
-.dark {
-  background-color: "Prussian Blue";
-  background-color: #393a4c; }
-  .dark header {
-    background: url(./images/bg-mobile-dark.jpg) top center/100% 100% no-repeat; }
-    @media screen and (min-width: 48em) {
-      .dark header {
-        background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat; } }
-  .dark .article-body .container-enter-task {
-    background-color: #4d5066; }
-    .dark .article-body .container-enter-task div, .dark .article-body .container-enter-task #enter-task {
-      background-color: #4d5066; }
-    .dark .article-body .container-enter-task #enter-task, .dark .article-body .container-enter-task ::placeholder {
-      color: "Oxford Blue";
-      color: #fafafa; }
-  .dark .article-body #all-tasks div, .dark .article-body #all-tasks input, .dark .article-body #all-tasks textarea {
-    background-color: #4d5066;
-    color: "Oxford Blue";
-    color: #fafafa; }
-  .dark .article-body .items-left, .dark .article-body ul button {
-    color: Crystal;
-    color: #cacde8; }
-  .dark .article-body .button-parent, .dark .article-body .button-parent > * {
-    background-color: #4d5066; }
-  .dark .checkbox-round:hover {
-    background: linear-gradient(gray, gray) padding-box, linear-gradient(#57ddff, #c058f3) border-box; }
-  .dark hr {
-    border-color: #717070; }
-  .dark .attribution a, .dark .attribution span {
-    color: #e4e5f1; }
-  .dark .cross {
-    filter: invert(21%) sepia(3%) saturate(3650%) hue-rotate(199deg) brightness(95%) contrast(89%); }
-  .dark .padding-half:hover .cross {
-    filter: brightness(0) saturate(100%) invert(74%) sepia(100%) saturate(3%) hue-rotate(232deg) brightness(107%) contrast(102%); }
 
 .light {
   background-color: "Oxford Blue";
@@ -214,11 +51,9 @@ textarea {
     @media screen and (min-width: 48em) {
       .light header {
         background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat; } }
-  .light .article-body .container-enter-task {
+  .light .article-body .container-enter-task, .light .article-body div, .light .article-body #enter-task {
     background-color: #f1f2f8; }
-    .light .article-body .container-enter-task div, .light .article-body .container-enter-task #enter-task {
-      background-color: #f1f2f8; }
-    .light .article-body .container-enter-task #enter-task, .light .article-body .container-enter-task ::placeholder {
+    .light .article-body .container-enter-task #enter-task, .light .article-body .container-enter-task ::placeholder, .light .article-body div #enter-task, .light .article-body div ::placeholder, .light .article-body #enter-task #enter-task, .light .article-body #enter-task ::placeholder {
       color: "Oxford Blue";
       color: #161722; }
   .light .article-body #all-tasks div, .light .article-body #all-tasks input, .light .article-body #all-tasks textarea {
@@ -299,12 +134,6 @@ button {
   button:hover {
     color: Cerulean;
     color: #e4e5f1; }
-
-textarea {
-  padding: 0.2em; }
-  @media screen and (min-width: 48em) {
-    textarea {
-      padding: 1em; } }
 
 main #mobile-clear {
   display: block; }
