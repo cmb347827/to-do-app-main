@@ -16,7 +16,8 @@ const vars ={
     lightBtn:document.getElementById('js-light-btn'),
     darkBtn : document.getElementById('js-dark-btn'),
     html :document.querySelector('html'),
-    reset : document.querySelector('.js-reset-btn')
+    reset : document.querySelector('.js-reset-btn'),
+    blankerror : document.querySelector('#blank-error'),
 }
 
 //the keys for localstorage.
@@ -141,9 +142,9 @@ vars.newTaskTextArea.addEventListener('keydown', (event) => {
   //user presses enter key 
   if (event.key === 'Enter' && passed) {
         //if the user has tried to enter a blank task earlier, remove the error message.
-        if($('#blank-error').hasClass('show-error')){
-            $('#blank-error').removeClass('show-error');
-            $('#blank-error').addClass('hide-error');
+        if(vars.blankerror.classList.contains('show-error')){
+            vars.blankerror.classList -= 'show-error';
+            vars.blankerror.classList +='hide-error';
         }
         //on user presses the enter key in 'create a new todo' textarea, get the new todo textarea value.
         const newTaskValue =vars.newTaskTextArea.value.trim();
@@ -161,9 +162,9 @@ vars.newTaskTextArea.addEventListener('keydown', (event) => {
         }
   }else if(event.key ==='Enter' && !passed){
      //the user has pressed enter while the #enter-task textarea is blank, show an error message.
-     if($('#blank-error').hasClass('hide-error')){
-        $('#blank-error').removeClass('hide-error');
-        $('#blank-error').addClass('show-error');
+     if(vars.blankerror.classList.contains('hide-error')){
+        vars.blankerror.classList -= 'hide-error';
+        vars.blankerror.classList += 'show-error';
      }
   }
 });
