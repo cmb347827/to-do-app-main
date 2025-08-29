@@ -1,9 +1,9 @@
 'use strict'; 
 
 
-$(window).resize(function(){
-	location.reload();
-});
+window.addEventListener("resize", (event) => { 
+   location.reload();
+})
 
 const vars ={
     tasksdiv : document.getElementById("all-tasks"),
@@ -381,18 +381,19 @@ const updateTaskContainer = (data) => {
 };
 
 const lighten=()=>{
-     if($(vars.darkBtn).hasClass('hide')){
-      $(vars.darkBtn).removeClass('hide');
-      $(vars.lightBtn).addClass('hide');
+     if(vars.darkBtn.classList.contains('hide')){
+      vars.darkBtn.classList -= " hide";
+      vars.lightBtn.classList +=' hide';
     }
-    if($(vars.lightBtn).hasClass('show')){
-      $(vars.lightBtn).removeClass('show');
-      $(vars.darkBtn).addClass('show');
+    if(vars.lightBtn.classList.contains('show')){
+      vars.lightBtn.classList -=' show';
+      vars.darkBtn.classList +=' show';
     }
-    if($(vars.html).hasClass('dark')){
-      $(vars.html).removeClass('dark');
-      $(vars.html).addClass('light');
+    if(vars.html.classList.contains('dark')){
+      vars.html.classList -=' dark';
+      vars.html.classList +=' light';
     }
+     
       vars.darkBtn.disable=false;
       vars.darkBtn.setAttribute('aria-hidden','false');
       vars.darkBtn.setAttribute('aria-disabled','false');
@@ -408,23 +409,23 @@ vars.lightBtn.addEventListener('click',()=>{
 });
 
 const darken=()=>{
-      if($(vars.lightBtn).hasClass('hide')){
-        $(vars.lightBtn).removeClass('hide');
-        $(vars.darkBtn).addClass('hide');
+      if(vars.lightBtn.classList.contains('hide')){
+        vars.lightBtn.classList -= 'hide';
+        vars.darkBtn.classList +=' hide';
       }
-      if($(vars.darkBtn).hasClass('show')){
-        $(vars.darkBtn).removeClass('show');
-        $(vars.lightBtn).addClass('show');
+      if(vars.darkBtn.classList.contains('show')){
+        vars.darkBtn.classList -=' show';
+        vars.lightBtn.classList +=' show';
       }
-      if($(vars.html).hasClass('light')){
-        $(vars.html).removeClass('light');
-        $(vars.html).addClass('dark');
+      if(vars.html.classList.contains('light')){
+        vars.html.classList -=' light';
+        vars.html.classList +=' dark';
       }
        vars.lightBtn.disable=false;
        vars.lightBtn.setAttribute('aria-hidden','false');
        vars.lightBtn.setAttribute('aria-disabled','false');
 
-       $(vars.darkBtn).disable=true;
+       vars.darkBtn.disable=true;
        vars.darkBtn.setAttribute('aria-hidden','true');
        vars.darkBtn.setAttribute('aria-disabled','true');
 }
