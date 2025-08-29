@@ -68,6 +68,7 @@ Users should be able to:
     Still all very confusing. I undid this change after that. 
   - When I ran lighthouse, it complained about 'render blocking request' errors.
   - On finding bugs in this app, I also removed bootstrap. Which all sounds simple, but this took a while. The bugs alone kept giving me errors , I think from what I remember , the loadfromstorage function.  I should add errors and fixes to the readme file from now on , as I go , I tend to add most at the end. 
+  - removed jquery, comprehensive guide link etc
 
 ### Continued development
 

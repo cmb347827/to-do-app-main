@@ -19,7 +19,6 @@ const vars ={
     reset : document.querySelector('.js-reset-btn'),
     blankerror : document.querySelector('#blank-error'),
 }
-
 //the keys for localstorage.
 const tasks = 'todo-app-main-*&*=^^&*@%$!?-tasks';
 const active = 'todo-app-main-$@#&*(!?@$%-active';
@@ -27,10 +26,8 @@ const completed= 'todo-app-main@!#$%^&*(#$%@!^%-completed';
 //light/dark key
 const light='todo-app-main-@$$#@^%(*-lighten';
 
-
 let sortable=''; 
 let viewType='taskData';
-
 
 let activeTasks=   [];
 let completedTasks= [];
@@ -350,7 +347,8 @@ const updateTaskContainer = (data) => {
     const activeArr= taskData.filter(isNotChecked);
     vars.itemsleft.textContent = activeArr.length;
 
-    let which; 
+
+    let which; let whichStyle;
     vars.tasksdiv.innerHTML='';
     if(data){
       data.forEach(
@@ -360,16 +358,16 @@ const updateTaskContainer = (data) => {
                     //whichStyle='text-decoration-line:line-through';
                     which='checked';
                    }else{
+                    whichStyle={};
                     which='';
                    }
                   (vars.tasksdiv.innerHTML += `
-                      <div data-id='${taskId}'>
-                          <div class="display-flex align-items-center">
-                            <input onchange='setRemoveChecked(event)' class="checkbox-round me-1 ${taskId}" type="checkbox" ${which} >
-                            <label for='${taskId}' class='visually-hidden'>Check or uncheck task</label>
-                            
-                            <textarea aria-label='Add task' onchange='updateTask(event)'>${task}</textarea>
-                            <button aria-label='delete task' onclick='deleteTask(event)' type='button' class='delete-task transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
+                      <div class='drag-task' data-id='${taskId}'>
+                          <div class="display-flex align-items-center padding-half" id="${taskId}">
+                            <input onchange='setRemoveChecked(event)' class="checkbox-round me-1" type="checkbox" ${which} >
+                            <label class='visually-hidden'>Check or uncheck task</label>
+                            <textarea style='${whichStyle}' onchange='updateTask(event)' class="">${task}</textarea>
+                            <button onclick='deleteTask(event)' type='button' class='delete-task btn transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
                           </div>
                           <hr class='bottom-hr'>
                       </div>
@@ -381,20 +379,19 @@ const updateTaskContainer = (data) => {
   addlisteners();
 };
 
-const lighten=()=>{
-     if(vars.darkBtn.classList.contains('hide')){
-      vars.darkBtn.classList -= " hide";
-      vars.lightBtn.classList +=' hide';
-    }
-    if(vars.lightBtn.classList.contains('show')){
-      vars.lightBtn.classList -=' show';
-      vars.darkBtn.classList +=' show';
-    }
-    if(vars.html.classList.contains('dark')){
-      vars.html.classList -=' dark';
-      vars.html.classList +=' light';
-    }
-     
+vars.lightBtn.addEventListener('click',()=>{
+      if(vars.darkBtn.classList.contains('hide')){
+         vars.darkBtn.classList -= " hide";
+         vars.lightBtn.classList +=' hide';
+      }
+      if(vars.lightBtn.classList.contains('show')){
+         vars.lightBtn.classList -=' show';
+         vars.darkBtn.classList +=' show';
+      }
+      if(vars.html.classList.contains('dark')){
+         vars.html.classList -=' dark';
+         vars.html.classList +=' light';
+      }
       vars.darkBtn.disable=false;
       vars.darkBtn.setAttribute('aria-hidden','false');
       vars.darkBtn.setAttribute('aria-disabled','false');
@@ -402,14 +399,9 @@ const lighten=()=>{
       vars.lightBtn.disable=true;
       vars.lightBtn.setAttribute('aria-hidden','true');
       vars.lightBtn.setAttribute('aria-disabled','true');
-}
-vars.lightBtn.addEventListener('click',()=>{
-      lighten();
-      localStorage.setItem('todo-app-main-@$$#@^%(*-lighten','true');
-      
 });
 
-const darken=()=>{
+vars.darkBtn.addEventListener('click',()=>{  //has hide.
       if(vars.lightBtn.classList.contains('hide')){
         vars.lightBtn.classList -= 'hide';
         vars.darkBtn.classList +=' hide';
@@ -429,10 +421,6 @@ const darken=()=>{
        vars.darkBtn.disable=true;
        vars.darkBtn.setAttribute('aria-hidden','true');
        vars.darkBtn.setAttribute('aria-disabled','true');
-}
-vars.darkBtn.addEventListener('click',()=>{  //has hide.
-       darken();
-       localStorage.setItem('todo-app-main-@$$#@^%(*-lighten','false');
 });
 
 
@@ -464,8 +452,7 @@ const addlisteners=()=>{
 }
 
 window.onload = function(){
-    
-    
+    //clearLocalStorage();
     let data = loadFromStorage('todo-app-main-*&*=^^&*@%$!?-tasks');
 
     if(data ===null){
@@ -475,15 +462,11 @@ window.onload = function(){
        activeTasks = loadFromStorage('todo-app-main-$@#&*(!?@$%-active');
        completedTasks=loadFromStorage('todo-app-main@!#$%^&*(#$%@!^%-completed');
     }
-    updateTaskContainer(taskData);
-
-    const islighten = localStorage.getItem('todo-app-main-@$$#@^%(*-lighten');
-    (islighten==='true') ? lighten() : darken();
-
     //initalize sortable.
     sortable= Sortable.create(vars.tasksdiv, {      
         animation: 150,               
         group: "tasks", 
     }); 
     
+    updateTaskContainer(taskData);
 };
