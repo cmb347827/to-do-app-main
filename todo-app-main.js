@@ -475,7 +475,7 @@ const addlisteners=()=>{
      });
      vars.newTaskTextArea.addEventListener('focus',()=>{
          vars.newTaskTextArea.placeholder='';
-     });
+     }); 
      vars.newTaskTextArea.addEventListener('keydown', (event) => {
           vars.newTaskTextArea.placeholder='';
           if (event.key === 'Enter') {
