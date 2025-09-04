@@ -1,33 +1,30 @@
 'use strict'; 
 
 
-window.addEventListener("resize", (event) => { 
-   location.reload();
-})
+$(window).resize(function(){
+	location.reload();
+});
 
-const vars ={
-    tasksdiv : document.querySelector(".js-all-tasks"),
-    itemsleft: document.querySelector('.js-items-left'),
-    newTaskTextArea : document.querySelector('.js-enter-task'),
-    completedBtn : document.querySelector('.js-completed-btn'),
-    activeBtn : document.querySelector('.js-active-btn'),
-    clearBtn : document.querySelector('.js-clear-btn'),
-    allBtn: document.querySelector('.js-all-btn'),
-    lightBtn:document.getElementById('js-light-btn'),
-    darkBtn : document.getElementById('js-dark-btn'),
-    html :document.querySelector('html'),
-    reset : document.querySelector('.js-reset-btn'),
-    blankerror : document.querySelector('#blank-error'),
-}
+const tasksDiv = document.getElementById("all-tasks");
+const newTaskTextArea = document.getElementById('enter-task');
+const itemsLeft=document.getElementById('js-items-left');
+const completedBtn = document.querySelector('.js-completed-btn');
+const activeBtn = document.querySelector('.js-active-btn');
+const clearBtn = document.querySelector('.js-clear-btn');
+
+const allBtn=document.querySelector('.js-all-btn');
+const lightBtn=document.getElementById('js-light-btn');
+const darkBtn = document.getElementById('js-dark-btn');
+const html =document.querySelector('html');
+
 //the keys for localstorage.
 const tasks = 'todo-app-main-*&*=^^&*@%$!?-tasks';
 const active = 'todo-app-main-$@#&*(!?@$%-active';
 const completed= 'todo-app-main@!#$%^&*(#$%@!^%-completed';
-//light/dark key
-const light='todo-app-main-@$$#@^%(*-lighten';
 
 let sortable=''; 
 let viewType='taskData';
+
 
 let activeTasks=   [];
 let completedTasks= [];
@@ -131,20 +128,20 @@ const addTaskByView=(newtask)=>{
     }
 }
 
-vars.newTaskTextArea.addEventListener('keydown', (event) => {
+newTaskTextArea.addEventListener('keydown', (event) => {
   const regex = /\S/;
   //prevents the user from entering nothing 
-  let passed = regex.test(vars.newTaskTextArea.value);
+  let passed = regex.test(newTaskTextArea.value);
 
   //user presses enter key 
   if (event.key === 'Enter' && passed) {
         //if the user has tried to enter a blank task earlier, remove the error message.
-        if(vars.blankerror.classList.contains('show-error')){
-            vars.blankerror.classList -= 'show-error';
-            vars.blankerror.classList +='hide-error';
+        if($('#blank-error').hasClass('show-error')){
+            $('#blank-error').removeClass('show-error');
+            $('#blank-error').addClass('hide-error');
         }
         //on user presses the enter key in 'create a new todo' textarea, get the new todo textarea value.
-        const newTaskValue =vars.newTaskTextArea.value.trim();
+        const newTaskValue =newTaskTextArea.value.trim();
         if(newTaskValue){
             //create a new task object
             const newTask ={
@@ -153,15 +150,15 @@ vars.newTaskTextArea.addEventListener('keydown', (event) => {
                 checked: false,
             }
             //clear the #enter-task textarea
-            vars.newTaskTextArea.value='Create a new todo...';
+            newTaskTextArea.value='Create a new todo...';
             //add the new task, works whether user is viewing the 'active' tasks, 'completed' tasks, or all tasks.
             addTaskByView(newTask);
         }
   }else if(event.key ==='Enter' && !passed){
      //the user has pressed enter while the #enter-task textarea is blank, show an error message.
-     if(vars.blankerror.classList.contains('hide-error')){
-        vars.blankerror.classList -= 'hide-error';
-        vars.blankerror.classList += 'show-error';
+     if($('#blank-error').hasClass('hide-error')){
+        $('#blank-error').removeClass('hide-error');
+        $('#blank-error').addClass('show-error');
      }
   }
 });
@@ -205,29 +202,26 @@ function updateTask(event){
               if(task.taskId===event.currentTarget.parentElement.id){
                  task.task = event.currentTarget.value;
                  //localStorage.setItem("tasks", JSON.stringify(taskData));
-                 //saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
+                 saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
               }
         });
-        saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
     }
     if(viewType==='activeTasks'){
         activeTasks.forEach((task)=>{
               if(task.taskId===event.currentTarget.parentElement.id){
                   task.task = event.currentTarget.value;
                   //localStorage.setItem("active-tasks", JSON.stringify(activeTasks)); 
-                  //saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);
+                  saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);
               }
         });
-        saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);
    } else if(viewType==='completedTasks'){
         completedTasks.forEach((task)=>{
               if(task.taskId===event.currentTarget.parentElement.id){
                   task.task = event.currentTarget.value;
                   //localStorage.setItem("completed-tasks", JSON.stringify(completedTasks)); 
-                  //saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);
+                  saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);
               }
         });
-        saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);
    }
 }
 
@@ -254,7 +248,7 @@ function setRemoveChecked(event){
     saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
     //displays the number of active tasks
     const activeArr= taskData.filter(isNotChecked);
-    vars.itemsleft.textContent = activeArr.length;
+    itemsLeft.textContent = activeArr.length;
 }
 
 function deleteTask(e){
@@ -263,39 +257,29 @@ function deleteTask(e){
 
    if(viewType==='taskData'){                                     
         //update shown list with the task deleted
-          taskData= taskData.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
+         taskData= taskData.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
          //localStorage.setItem('tasks', JSON.stringify(taskData));  
           saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
-          updateTaskContainer(taskData); 
-          //update activeTasks/completedTasks by filtering the task, if it's in either activeTask or completedTask, either will be update/saved
-          activeTasks= activeTasks.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
-          saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks); 
-          completedTasks= completedTasks.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
-          saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);
-
+          updateTaskContainer(taskData);                                                                 
     } else if(viewType==='activeTasks'){
           activeTasks= activeTasks.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
-          //update taskData , by removing the activeTask task
-          taskData= taskData.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));             
-          saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);                                             
+          //localStorage.setItem('active-tasks', JSON.stringify(activeTasks));  
+          saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);                                     
           //update shown list with the task deleted
           updateTaskContainer(activeTasks); 
     } else if(viewType==='completedTasks'){
           completedTasks= completedTasks.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
-          //update taskData by removing the completedTask task
-          taskData= taskData.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));            
+          //localStorage.setItem('completed-tasks', JSON.stringify(completedTasks));  
           saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);                                     
           //update shown list with the task deleted
           updateTaskContainer(completedTasks); 
     }
-    //taskData= taskData.filter(task=>!(task.taskId===e.currentTarget.parentElement.id));
-    saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
 }
   
 
 
 // all , active and completed button functions................
-vars.allBtn.addEventListener('click',(e)=>{
+allBtn.addEventListener('click',(e)=>{
    //setView sets viewType to the current tasks, in this case taskData or after the user presses the all button.
    setView('taskData');
    //taskData is not set to an empty array, as taskData values consist of completedTasks and activeTasks values.
@@ -303,7 +287,7 @@ vars.allBtn.addEventListener('click',(e)=>{
    updateTaskContainer(taskData);
 });
 
-vars.completedBtn.addEventListener('click',(e)=>{
+completedBtn.addEventListener('click',(e)=>{
    //setView sets viewType of completedTasks as the user pressed the 'completed' button
    setView('completedTasks');
    //set completedTasks to empty array , to avoid adding to end from possible earlier getItem calls.
@@ -316,7 +300,7 @@ vars.completedBtn.addEventListener('click',(e)=>{
 const isChecked=(inputEl)=>inputEl.checked;
 const isNotChecked=(inputEl)=>!inputEl.checked;
 
-vars.activeBtn.addEventListener('click',(e)=>{
+activeBtn.addEventListener('click',(e)=>{
     //setView sets viewType to activeTasks as the user pressed the 'active' button
     setView('activeTasks');
     //set activeTasks to empty array , to avoid adding to end from possible earlier getItem calls.
@@ -339,7 +323,7 @@ const clearTodo=()=>{
     saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
 }
 
-vars.clearBtn.addEventListener('click',()=>{
+clearBtn.addEventListener('click',()=>{
     //setView sets viewType to completedTasks as the user pressed the 'Clear Completed' button and should show the empty completed on updateTaskContainer.
     setView('completedTasks');
     //set completedTasks to empty array first
@@ -358,11 +342,11 @@ vars.clearBtn.addEventListener('click',()=>{
 const updateTaskContainer = (data) => {
     //displays the number of active tasks
     const activeArr= taskData.filter(isNotChecked);
-    vars.itemsleft.textContent = activeArr.length;
-
+    itemsLeft.textContent = activeArr.length;
+    
 
     let which; let whichStyle;
-    vars.tasksdiv.innerHTML='';
+    tasksDiv.innerHTML = "";
     if(data){
       data.forEach(
           ({ taskId, task ,checked}) => {
@@ -374,12 +358,12 @@ const updateTaskContainer = (data) => {
                     whichStyle={};
                     which='';
                    }
-                  (vars.tasksdiv.innerHTML += `
+                  (tasksDiv.innerHTML += `
                       <div class='drag-task' data-id='${taskId}'>
                           <div class="display-flex align-items-center padding-half" id="${taskId}">
                             <input onchange='setRemoveChecked(event)' class="checkbox-round me-1" type="checkbox" ${which} >
                             <label class='visually-hidden'>Check or uncheck task</label>
-                            <textarea style='${whichStyle}' onchange='updateTask(event)' class="padding-half">${task}</textarea>
+                            <textarea style='${whichStyle}' onchange='updateTask(event)' class="">${task}</textarea>
                             <button onclick='deleteTask(event)' type='button' class='delete-task btn transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
                           </div>
                           <hr class='bottom-hr'>
@@ -392,59 +376,48 @@ const updateTaskContainer = (data) => {
   addlisteners();
 };
 
-const lighten=()=>{
-     if(vars.darkBtn.classList.contains('hide')){
-      vars.darkBtn.classList -= " hide";
-      vars.lightBtn.classList +=' hide';
+lightBtn.addEventListener('click',()=>{
+    if($(darkBtn).hasClass('hide')){
+      $(darkBtn).removeClass('hide');
+      $(lightBtn).addClass('hide');
     }
-    if(vars.lightBtn.classList.contains('show')){
-      vars.lightBtn.classList -=' show';
-      vars.darkBtn.classList +=' show';
+    if($(lightBtn).hasClass('show')){
+      $(lightBtn).removeClass('show');
+      $(darkBtn).addClass('show');
     }
-    if(vars.html.classList.contains('dark')){
-      vars.html.classList -=' dark';
-      vars.html.classList +=' light';
+    if($(html).hasClass('dark')){
+      $(html).removeClass('dark');
+      $(html).addClass('light');
     }
-     
-      //vars.darkBtn.setAttribute('inert','false');
-      vars.darkBtn.setAttribute('aria-disabled','false');
-      vars.darkBtn.disable=false;
-      
-      //vars.lightBtn.setAttribute('inert','true');
-      vars.lightBtn.setAttribute('aria-disabled','true');
-      vars.lightBtn.disable=true;
-}
-vars.lightBtn.addEventListener('click',()=>{
-      lighten();
-      localStorage.setItem('todo-app-main-@$$#@^%(*-lighten','true');
-      
+      darkBtn.disable=false;
+      darkBtn.setAttribute('aria-hidden','false');
+      darkBtn.setAttribute('aria-disabled','false');
+
+      lightBtn.disable=true;
+      lightBtn.setAttribute('aria-hidden','true');
+      lightBtn.setAttribute('aria-disabled','true');
 });
 
-const darken=()=>{
-      if(vars.lightBtn.classList.contains('hide')){
-        vars.lightBtn.classList -= 'hide';
-        vars.darkBtn.classList +=' hide';
+darkBtn.addEventListener('click',()=>{  //has hide.
+      if($(lightBtn).hasClass('hide')){
+        $(lightBtn).removeClass('hide');
+        $(darkBtn).addClass('hide');
       }
-      if(vars.darkBtn.classList.contains('show')){
-        vars.darkBtn.classList -=' show';
-        vars.lightBtn.classList +=' show';
+      if($(darkBtn).hasClass('show')){
+        $(darkBtn).removeClass('show');
+        $(lightBtn).addClass('show');
       }
-      if(vars.html.classList.contains('light')){
-        vars.html.classList -=' light';
-        vars.html.classList +=' dark';
+      if($(html).hasClass('light')){
+        $(html).removeClass('light');
+        $(html).addClass('dark');
       }
-       
-       // vars.lightBtn.setAttribute('inert','false');
-       vars.lightBtn.setAttribute('aria-disabled','false');
-       vars.lightBtn.disable=false;
+       lightBtn.disable=false;
+       lightBtn.setAttribute('aria-hidden','false');
+       lightBtn.setAttribute('aria-disabled','false');
 
-       //vars.darkBtn.setAttribute('inert','true');
-       vars.darkBtn.setAttribute('aria-disabled','true');
-       vars.darkBtn.disable=true;
-}
-vars.darkBtn.addEventListener('click',()=>{  //has hide.
-       darken();
-       localStorage.setItem('todo-app-main-@$$#@^%(*-lighten','false');
+       $(darkBtn).disable=true;
+       darkBtn.setAttribute('aria-hidden','true');
+       darkBtn.setAttribute('aria-disabled','true');
 });
 
 
@@ -470,22 +443,9 @@ const addlisteners=()=>{
          e.target.classList.add("dragging");
          saveOrder(e);
      }));
-     vars.reset.addEventListener('click',()=>{
-         clearLocalStorage();
-     });
-     vars.newTaskTextArea.addEventListener('focus',()=>{
-         vars.newTaskTextArea.placeholder='';
-     });
-     vars.newTaskTextArea.addEventListener('keydown', (event) => {
-          vars.newTaskTextArea.placeholder='';
-          if (event.key === 'Enter') {
-             vars.newTaskTextArea.setSelectionRange(0,0);
-          
-          }
-     });
 }
 
-window.onload = function(){
+$(window).on('load',function(){
     //clearLocalStorage();
     let data = loadFromStorage('todo-app-main-*&*=^^&*@%$!?-tasks');
 
@@ -496,15 +456,11 @@ window.onload = function(){
        activeTasks = loadFromStorage('todo-app-main-$@#&*(!?@$%-active');
        completedTasks=loadFromStorage('todo-app-main@!#$%^&*(#$%@!^%-completed');
     }
-    updateTaskContainer(taskData);
-
-    const islighten = localStorage.getItem('todo-app-main-@$$#@^%(*-lighten');
-    (islighten==='true') ? lighten() : darken();
     //initalize sortable.
-    sortable= Sortable.create(vars.tasksdiv, {      
+    sortable= Sortable.create(tasksDiv, {      
         animation: 150,               
         group: "tasks", 
     }); 
     
-    
-};
+    updateTaskContainer(taskData);
+});

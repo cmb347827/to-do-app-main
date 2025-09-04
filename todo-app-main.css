@@ -66,7 +66,7 @@ textarea {
     textarea {
       padding: 1em; } }
 
-.transparent-bg {
+button {
   background-color: transparent;
   border: none; }
 
@@ -78,12 +78,12 @@ textarea {
   background-color: #393a4c; }
   .dark .container-enter-task {
     background-color: #4d5066; }
-    .dark .container-enter-task div, .dark .container-enter-task #enter-task {
+    .dark .container-enter-task div, .dark .container-enter-task textarea {
       background-color: #4d5066; }
-    .dark .container-enter-task #enter-task, .dark .container-enter-task ::placeholder {
+    .dark .container-enter-task textarea, .dark .container-enter-task ::placeholder {
       color: "Oxford Blue";
       color: #fafafa; }
-  .dark #all-tasks div, .dark #all-tasks input, .dark #all-tasks textarea {
+  .dark .css-tasks div, .dark .css-tasks input, .dark .css-tasks textarea {
     background-color: #4d5066;
     color: "Oxford Blue";
     color: #fafafa; }
@@ -113,15 +113,17 @@ textarea {
   background-color: #fafafa; }
   .light .container-enter-task {
     background-color: #f1f2f8; }
-    .light .container-enter-task div, .light .container-enter-task #enter-task {
+    .light .container-enter-task div, .light .container-enter-task textarea {
       background-color: #f1f2f8; }
-    .light .container-enter-task #enter-task, .light .container-enter-task ::placeholder {
+    .light .container-enter-task textarea, .light .container-enter-task ::placeholder {
       color: "Oxford Blue";
       color: #161722; }
-  .light #all-tasks div, .light #all-tasks input, .light #all-tasks textarea {
-    background-color: #f5f5fa;
-    color: Cerulean;
-    color: #777a92; }
+  .light .css-tasks {
+    background-image: linear-gradient(to right, violet, darkred, purple); }
+    .light .css-tasks div, .light .css-tasks input, .light .css-tasks textarea {
+      background-color: #f5f5fa;
+      color: Cerulean;
+      color: #777a92; }
   .light .items-left, .light ul button, .light #mobile-clear {
     color: Cerulean;
     color: #9394a5; }
@@ -148,27 +150,36 @@ h1 {
   padding: 0;
   margin: 0; }
 
+@keyframes strike {
+  from {
+    text-decoration-color: transparent; }
+  to {
+    text-decoration-color: auto; } }
 input {
   -ms-transform: scale(1.7);
   -moz-transform: scale(1.7);
   -webkit-transform: scale(1.7);
   transform: scale(1.7);
   border-radius: 50%;
-  margin-left: 1em; }
+  margin-left: 1em;
+  margin-right: 0.8em; }
   input:not(:checked) ~ textarea {
     text-decoration: none; }
   input:checked {
     background-image: linear-gradient(#57ddff, #c058f3);
     cursor: pointer; }
     input:checked ~ textarea {
-      text-decoration-line: line-through; }
+      text-decoration: line-through;
+      animation: strike 3s linear; }
   input:checked:after {
     content: '✔';
     z-index: 99;
-    transition: all .2s;
     position: relative;
     left: 20%;
     filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(318%) hue-rotate(154deg) brightness(105%) contrast(104%); }
+    @media (prefers-reduced-motion: reduce) {
+      input:checked:after {
+        animation: strike 5s linear; } }
 
 html {
   box-sizing: border-box; }

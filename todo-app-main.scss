@@ -115,7 +115,7 @@ textarea{
         padding:1em;
     }
 }
-.transparent-bg{
+button{
     background-color: transparent;
     border:none;
 }
@@ -125,26 +125,23 @@ textarea{
 }
 
 .dark{
-    
-       @include bg-color(map-get($dark-colors,Very Dark Grayish Blue2),nth($fallback-colors-dark,7));
-       
-        
-          .container-enter-task{
+        @include bg-color(map-get($dark-colors,Very Dark Grayish Blue2),nth($fallback-colors-dark,7));
+        .container-enter-task{
+            background-color:map-get($dark-colors, Very Dark Grayish Blue1);
+            div,textarea{
               background-color:map-get($dark-colors, Very Dark Grayish Blue1);
-              div,#enter-task{
-                background-color:map-get($dark-colors, Very Dark Grayish Blue1);
-              }
-              #enter-task,::placeholder{
-                  @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
-              }
-            
-          }
-          #all-tasks{
+            }
+            textarea,::placeholder{
+                @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
+            }
+          
+        }
+        .css-tasks{
             div,input,textarea{
                   background-color:map-get($dark-colors, Very Dark Grayish Blue1);
                   @include font-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
             }
-          }
+        }
           .items-left,ul button{
             @include font-color(map-get($dark-colors,Light Grayish Blue1),nth($fallback-colors-dark,3));
           }
@@ -184,26 +181,24 @@ textarea{
 }
 
 .light{
-  
         @include bg-color(map-get($light-colors,Very Light Gray),nth($fallback-colors-dark,1));
-     
-        
-          .container-enter-task{
+        .container-enter-task{
+            background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
+            div,textarea{
               background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
-              div,#enter-task{
-                background-color:lighten(map-get($light-colors, Very Light Grayish Blue),4);
-              }
-              #enter-task,::placeholder{
-                @include font-color(map-get($dark-colors,Very Dark Blue),nth($fallback-colors-dark,1));
-              }
-          
-          }
-          #all-tasks{
+            }
+            textarea,::placeholder{
+              @include font-color(map-get($dark-colors,Very Dark Blue),nth($fallback-colors-dark,1));
+            }
+        
+        }
+        .css-tasks{  
+            background-image: linear-gradient(to right, violet, darkred, purple);
             div,input,textarea{
               background-color:lighten(map-get($light-colors, Very Light Grayish Blue),5);
               @include font-color(map-get($dark-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
             }
-          }
+        }
           .items-left,ul button,#mobile-clear{
               @include font-color(map-get($light-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
           }
@@ -245,6 +240,10 @@ h1{
    padding:0;
    margin:0;
 }
+@keyframes strike {
+  from { text-decoration-color: transparent; }
+  to { text-decoration-color: auto; }
+}
 
 input{
   -ms-transform: scale(1.7); 
@@ -253,6 +252,7 @@ input{
   transform:scale(1.7);
   border-radius:50%;
   margin-left: 1em;
+  margin-right: 0.8em;
 
   &:not(:checked) ~ textarea{
      text-decoration: none;
@@ -261,17 +261,23 @@ input{
     background-image: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
     cursor: pointer;
     & ~ textarea{
-      text-decoration-line:line-through;
+       text-decoration: line-through;
+       animation:strike 3s linear;
     }
+    
+    
   }
   &:checked:after{
      content:'✔';
      
      z-index:99;
-     transition: all .2s;
      position:relative;
      left: 20%;
      filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(318%) hue-rotate(154deg) brightness(105%) contrast(104%);
+    
+     @media (prefers-reduced-motion: reduce) {
+         animation:strike 5s linear;
+     }
   }
 }
 
