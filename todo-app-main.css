@@ -94,6 +94,9 @@ button {
     background-color: #4d5066; }
   .dark .checkbox-round:hover {
     background: linear-gradient(gray, gray) padding-box, linear-gradient(#57ddff, #c058f3) border-box; }
+  .dark .css-reset {
+    color: white;
+    border: 2px solid white; }
   .dark hr {
     border-color: #717070; }
   .dark .attribution a, .dark .attribution span {
@@ -138,6 +141,9 @@ button {
   .light hr {
     border: none;
     border-bottom: 1px solid #dbdbdb; }
+  .light .css-reset {
+    color: darkgray;
+    border: 2px solid darkgray; }
   .light .attribution a, .light .attribution span {
     color: #9394a5; }
   .light header {

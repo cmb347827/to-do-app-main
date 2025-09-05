@@ -10,7 +10,7 @@
   <link fetchpriority='high' rel="preload" as="image" href="./images/bg-mobile-dark.jpg" media="(width <= 48em)">
   <link fetchpriority='high' rel="preload" as="image" href="./images/bg-desktop-dark.jpg" media="(width > 48em)">
   <!--link blocking='render' rel='stylesheet' href='todo-app-main.min.css' type='text/css'-->
-  <link rel="stylesheet" href="todo-app-main.min.css" type="text/css">
+  <link rel="stylesheet" href="todo-app-main.css" type="text/css">
 
   <!--link blocking='render' rel="preconnect" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js">
   <link blocking='render' rel="dns-prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"-->
@@ -40,9 +40,9 @@
                           </div>
                     </div>
                     
-                    <div class='mt-4 js-all-tasks css-tasks'>
+                    <form  action="" method="get"  class='mt-4 js-all-tasks css-tasks'>
                       <!--tasks added dynamically using js-->
-                    </div>
+                    </form>
                     <div class="display-flex colRow justify-content-space-around button-parent">   
                         <div class="display-flex  align-items-center justify-content-space-around">
                             <p class="items-left"><span class='js-items-left'>0</span> items left</p>
@@ -57,7 +57,7 @@
                     </div>
               </div>
           </article>
-          <p class="text-center grayish-font">Drag and drop to reorder list <button class='js-reset-btn' type='button'>Reset</button></p>
+          <p class="text-center grayish-font">Drag and drop to reorder list <button class='js-reset-btn css-reset text-uppercase' type='button'>Reset</button></p>
           
   </main>
   <footer id='bottom-footer'>

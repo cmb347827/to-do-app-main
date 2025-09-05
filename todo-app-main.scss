@@ -155,6 +155,10 @@ button{
               linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
           }
         }
+       .css-reset{
+          color: white;
+          border: 2px solid white;
+       }
        hr{
           border-color:#717070;
        }
@@ -223,6 +227,10 @@ button{
       hr{
          border:none;
          border-bottom: 1px solid rgb(219, 219, 219)[]
+      }
+      .css-reset{
+         color: darkgray;
+         border: 2px solid darkgray;
       }
       .attribution a,.attribution span {
         color: map-get($light-colors, Dark Grayish Blue);
@@ -380,6 +388,8 @@ main{
             margin:0;
             
           }
+         
+          
           ul li{
               list-style-type: none;
           }
