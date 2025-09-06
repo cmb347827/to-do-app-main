@@ -74,7 +74,7 @@ button {
   padding: 0.5em 0; }
 
 .dark {
-
+  background-color: "Prussian Blue";
   background-color: #393a4c; }
   .dark .container-enter-task {
     background-color: #4d5066; }
@@ -160,7 +160,7 @@ h1 {
   from {
     text-decoration-color: transparent; }
   to {
-    text-decoration-color: auto; } }
+    text-decoration-color: white; } }
 input {
   -ms-transform: scale(1.7);
   -moz-transform: scale(1.7);
@@ -177,9 +177,9 @@ input {
     input:checked ~ textarea {
       text-decoration: line-through;
       animation: strike 3s linear; }
-    @media (prefers-reduced-motion: reduce) {
-      input:checked {
-        animation: strike 5s linear; } }
+      @media (prefers-reduced-motion: reduce) {
+        input:checked ~ textarea {
+          animation: strike 5s linear; } }
   input:checked:after {
     content: '✔';
     z-index: 99;

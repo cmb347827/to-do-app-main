@@ -47,7 +47,7 @@ $dark-colors:(
   Very Dark Grayish Blue2: hsl(237, 14%, 26%)
 );
 $fallback-colors-dark: (
-   'Oxford Blue', 'Deep Space Sparkle', Crystal, Cerulean, Charcoal ,RoyalBlue4, 'Prussian Blue'
+    DarkSlateBlue , MidnightBlue, LightSteelBlue, WhiteSmoke,SteelBlue, DarkBlue,Indigo,
 );
 
 @mixin font-color($color, $fallback-color) {
@@ -250,7 +250,7 @@ h1{
 }
 @keyframes strike {
   from { text-decoration-color: transparent; }
-  to { text-decoration-color: auto; }
+  to { text-decoration-color: white; }
 }
 
 input{
@@ -271,10 +271,10 @@ input{
     & ~ textarea{
        text-decoration: line-through;
        animation:strike 3s linear;
+       @media (prefers-reduced-motion: reduce) {
+          animation:strike 5s linear;
+       }
     }
-     @media (prefers-reduced-motion: reduce) {
-         animation:strike 5s linear;
-     }
     
   }
   &:checked:after{
