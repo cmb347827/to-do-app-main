@@ -78,6 +78,8 @@ $fallback-colors-dark: (
 }
 h1{
    font-size: 2em;
+    padding:0;
+   margin:0;
 }
 .hide-error{
    display:none;
@@ -101,11 +103,11 @@ h1{
 .visually-hidden:not(:focus):not(:active) {
   clip: rect(0 0 0 0); 
   clip-path: inset(50%);
-  height: 1px;
+  height: 0.0625em;
   overflow: hidden;
   position: absolute;
   white-space: nowrap; 
-  width: 1px;
+  width: 0.0625em;
 }
 textarea{
     width: 100%;
@@ -203,7 +205,7 @@ button{
               @include font-color(map-get($dark-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
             }
         }
-          .items-left,ul button,#mobile-clear{
+          .items-left,ul button,.mobile-clear{
               @include font-color(map-get($light-colors,Dark Grayish Blue),nth($fallback-colors-dark,4));
           }
           .button-parent,.button-parent > * {
@@ -226,11 +228,11 @@ button{
        }
       hr{
          border:none;
-         border-bottom: 1px solid rgb(219, 219, 219);
+         border-bottom:0.0625em solid rgb(219, 219, 219);
       }
       .css-reset{
          color: darkgray;
-         border: 2px solid darkgray;
+         border:  0.125em solid darkgray;
       }
       .attribution a,.attribution span {
         color: map-get($light-colors, Dark Grayish Blue);
@@ -244,10 +246,7 @@ button{
     }
 }
 
-h1{
-   padding:0;
-   margin:0;
-}
+
 @keyframes strike {
   from { text-decoration-color: transparent; }
   to { text-decoration-color: white; }
@@ -313,9 +312,9 @@ body{
   opacity:1;
 }
 .decorative-circle{
-  width:30px;
-  height: 30px;
-  border: 1px solid gray;
+  width:1.875em;
+  height: 1.875em;
+  border: 0.0625em solid gray;
   border-radius: 50%;
   margin: 0.5em 0em 0em 0.5em;
 }
@@ -324,12 +323,12 @@ body{
      background-color:pink;
 }
 main{ 
-      #mobile-clear{
+      .mobile-clear{
         display:block;
       }
-      @media screen and (min-width: 768px) {
-         #desktop-clear  { display: block; }
-         #mobile-clear { display: none; }
+      @media screen and (min-width: 48em) {
+         .desktop-clear  { display: block; }
+         .mobile-clear { display: none; }
       }
       .grayish-font{
         color: map-get($dark-colors, Light Grayish Blue1);
@@ -342,7 +341,7 @@ main{
           padding:0;
           .article-body,.article-header{
             width: 90%;
-            max-width:992px;
+            max-width: 62em;
             @include margin(0 auto);
             padding:0;
             
@@ -354,7 +353,7 @@ main{
           .article-body{
             position:relative;
             top:-9rem;
-            .task,textarea,ul,#enter-task {
+            .task,textarea,ul {
               border:none;
             }
             button{
@@ -369,7 +368,7 @@ main{
               background-color: white;
               border-radius: 50%;
               vertical-align: middle;
-              border: 1px solid #ddd;
+              border: 0.0625em solid #ddd;
               appearance: none;
               -webkit-appearance: none;
               outline: none;
@@ -399,7 +398,7 @@ main{
 
 #bottom-footer {
   .attribution {
-    font-size: 10px;
+    font-size: 0.625em;
     text-align: center;
   }
 }

@@ -29,7 +29,9 @@
   color: red; }
 
 h1 {
-  font-size: 2em; }
+  font-size: 2em;
+  padding: 0;
+  margin: 0; }
 
 .hide-error {
   display: none; }
@@ -52,11 +54,11 @@ h1 {
 .visually-hidden:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
-  height: 1px;
+  height: 0.0625em;
   overflow: hidden;
   position: absolute;
   white-space: nowrap;
-  width: 1px; }
+  width: 0.0625em; }
 
 textarea {
   width: 100%;
@@ -74,21 +76,21 @@ button {
   padding: 0.5em 0; }
 
 .dark {
-  background-color: "Prussian Blue";
+  background-color: Indigo;
   background-color: #393a4c; }
   .dark .container-enter-task {
     background-color: #4d5066; }
     .dark .container-enter-task div, .dark .container-enter-task textarea {
       background-color: #4d5066; }
     .dark .container-enter-task textarea, .dark .container-enter-task ::placeholder {
-      color: "Oxford Blue";
+      color: DarkSlateBlue;
       color: #fafafa; }
   .dark .css-tasks div, .dark .css-tasks input, .dark .css-tasks textarea {
     background-color: #4d5066;
-    color: "Oxford Blue";
+    color: DarkSlateBlue;
     color: #fafafa; }
   .dark .items-left, .dark ul button {
-    color: Crystal;
+    color: LightSteelBlue;
     color: #cacde8; }
   .dark .button-parent, .dark .button-parent > * {
     background-color: #4d5066; }
@@ -112,23 +114,23 @@ button {
         background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat; } }
 
 .light {
-  background-color: "Oxford Blue";
+  background-color: DarkSlateBlue;
   background-color: #fafafa; }
   .light .container-enter-task {
     background-color: #f1f2f8; }
     .light .container-enter-task div, .light .container-enter-task textarea {
       background-color: #f1f2f8; }
     .light .container-enter-task textarea, .light .container-enter-task ::placeholder {
-      color: "Oxford Blue";
+      color: DarkSlateBlue;
       color: #161722; }
   .light .css-tasks {
     background-image: linear-gradient(to right, violet, darkred, purple); }
     .light .css-tasks div, .light .css-tasks input, .light .css-tasks textarea {
       background-color: #f5f5fa;
-      color: Cerulean;
+      color: WhiteSmoke;
       color: #777a92; }
-  .light .items-left, .light ul button, .light #mobile-clear {
-    color: Cerulean;
+  .light .items-left, .light ul button, .light .mobile-clear {
+    color: WhiteSmoke;
     color: #9394a5; }
   .light .button-parent, .light .button-parent > * {
     background-color: #f5f5fa; }
@@ -140,10 +142,10 @@ button {
     filter: brightness(0) saturate(100%) invert(5%) sepia(5%) saturate(6774%) hue-rotate(146deg) brightness(95%) contrast(104%); }
   .light hr {
     border: none;
-    border-bottom: 1px solid #dbdbdb; }
+    border-bottom: 0.0625em solid #dbdbdb; }
   .light .css-reset {
     color: darkgray;
-    border: 2px solid darkgray; }
+    border: 0.125em solid darkgray; }
   .light .attribution a, .light .attribution span {
     color: #9394a5; }
   .light header {
@@ -151,10 +153,6 @@ button {
     @media screen and (min-width: 48em) {
       .light header {
         background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat; } }
-
-h1 {
-  padding: 0;
-  margin: 0; }
 
 @keyframes strike {
   from {
@@ -205,21 +203,21 @@ body {
   opacity: 1; }
 
 .decorative-circle {
-  width: 30px;
-  height: 30px;
-  border: 1px solid gray;
+  width: 1.875em;
+  height: 1.875em;
+  border: 0.0625em solid gray;
   border-radius: 50%;
   margin: 0.5em 0em 0em 0.5em; }
 
 .dragging {
   background-color: pink; }
 
-main #mobile-clear {
+main .mobile-clear {
   display: block; }
-@media screen and (min-width: 768px) {
-  main #desktop-clear {
+@media screen and (min-width: 48em) {
+  main .desktop-clear {
     display: block; }
-  main #mobile-clear {
+  main .mobile-clear {
     display: none; } }
 main .grayish-font {
   color: #cacde8; }
@@ -230,7 +228,7 @@ main article {
     padding: 0.5em; }
   main article .article-body, main article .article-header {
     width: 90%;
-    max-width: 992px;
+    max-width: 62em;
     margin: 0 auto;
     padding: 0; }
   main article .article-header {
@@ -239,13 +237,13 @@ main article {
   main article .article-body {
     position: relative;
     top: -9rem; }
-    main article .article-body .task, main article .article-body textarea, main article .article-body ul, main article .article-body #enter-task {
+    main article .article-body .task, main article .article-body textarea, main article .article-body ul {
       border: none; }
     main article .article-body button {
-      color: Crystal;
+      color: LightSteelBlue;
       color: #cacde8; }
       main article .article-body button:hover {
-        color: Cerulean;
+        color: WhiteSmoke;
         color: #e4e5f1; }
     main article .article-body .checkbox-round {
       width: 1.3em;
@@ -253,7 +251,7 @@ main article {
       background-color: white;
       border-radius: 50%;
       vertical-align: middle;
-      border: 1px solid #ddd;
+      border: 0.0625em solid #ddd;
       appearance: none;
       -webkit-appearance: none;
       outline: none;
@@ -268,7 +266,7 @@ main article {
     list-style-type: none; }
 
 #bottom-footer .attribution {
-  font-size: 10px;
+  font-size: 0.625em;
   text-align: center; }
 
 /*# sourceMappingURL=todo-app-main.css.map */
