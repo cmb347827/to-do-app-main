@@ -2,6 +2,12 @@
 .display-flex {
   display: flex; }
 
+.direction-column {
+  flex-direction: column; }
+
+.order-0 {
+  order: 0; }
+
 .align-items-flex-start {
   align-items: flex-start; }
 
@@ -265,7 +271,7 @@ main article {
   main article ul li {
     list-style-type: none; }
 
-#bottom-footer .attribution {
+.attribution {
   font-size: 0.625em;
   text-align: center; }
 

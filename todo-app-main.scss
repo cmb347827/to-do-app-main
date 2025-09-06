@@ -3,6 +3,12 @@
  .display-flex{
       display:flex;
   }
+  .direction-column{
+     flex-direction:column;
+  }
+  .order-0{
+      order:0;
+  }
   .align-items-flex-start{
       align-items:flex-start;
   }
@@ -396,9 +402,8 @@ main{
 }
 
 
-#bottom-footer {
+
   .attribution {
     font-size: 0.625em;
     text-align: center;
   }
-}
