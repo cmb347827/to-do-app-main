@@ -226,7 +226,7 @@ button{
        }
       hr{
          border:none;
-         border-bottom: 1px solid rgb(219, 219, 219)[]
+         border-bottom: 1px solid rgb(219, 219, 219);
       }
       .css-reset{
          color: darkgray;
@@ -272,7 +272,9 @@ input{
        text-decoration: line-through;
        animation:strike 3s linear;
     }
-    
+     @media (prefers-reduced-motion: reduce) {
+         animation:strike 5s linear;
+     }
     
   }
   &:checked:after{
@@ -282,10 +284,7 @@ input{
      position:relative;
      left: 20%;
      filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(318%) hue-rotate(154deg) brightness(105%) contrast(104%);
-    
-     @media (prefers-reduced-motion: reduce) {
-         animation:strike 5s linear;
-     }
+  
   }
 }
 
