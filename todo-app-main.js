@@ -374,12 +374,12 @@ const updateTaskContainer = (data) => {
                    }
                   (vars.tasksdiv.innerHTML += `
                       <div class='drag-task' data-id='${taskId}'>
-                          <div class="display-flex align-items-center padding-half">
-                            <input onchange='setRemoveChecked(event)' class="checkbox-round me-1" type="checkbox" ${which} id="q${taskId}">
-                            <label class='visually-hidden' for="q${taskId}">Check or uncheck task</label>
-                            <label class='visually-hidden' for="x${taskId}">Add a task</label>
-                            <textarea id="x${taskId}" name='${task}' onchange='updateTask(event)' class="padding-half">${task}</textarea>
-                            <button aria-label='delete this task'  onclick='deleteTask(event)' type='button' class='delete-task btn transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
+                          <div class="display-flex align-items-center padding-half" id="${taskId}">
+                              <input onchange='setRemoveChecked(event)' class="checkbox-round me-1" type="checkbox" ${which}  id="q${taskId}">
+                              <label class='visually-hidden' for="q${taskId}">Check or uncheck task</label>
+                              <label class='visually-hidden' for='x${taskId}'>Enter a task</label>
+                              <textarea onchange='updateTask(event)' class="padding-half" id='x${taskId}'>${task}</textarea>
+                              <button onclick='deleteTask(event)' type='button' class='delete-task btn transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
                           </div>
                           <hr class='bottom-hr'>
                       </div>
