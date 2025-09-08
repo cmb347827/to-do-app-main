@@ -50,9 +50,11 @@ function clearLocalStorage(){
     localStorage.clear();
 }
 function uuidv4() {
-    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+   let temp= "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
       (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
     );
+    //add random letter in beginning because variable values can't start with a number.
+    return `a${temp}`;
 }
 
 let defaultTasks =[
@@ -204,8 +206,6 @@ function updateTask(event){
         taskData.forEach((task)=>{
               if(task.taskId===event.currentTarget.parentElement.id){
                  task.task = event.currentTarget.value;
-                 //localStorage.setItem("tasks", JSON.stringify(taskData));
-                 //saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
               }
         });
         saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
@@ -214,8 +214,6 @@ function updateTask(event){
         activeTasks.forEach((task)=>{
               if(task.taskId===event.currentTarget.parentElement.id){
                   task.task = event.currentTarget.value;
-                  //localStorage.setItem("active-tasks", JSON.stringify(activeTasks)); 
-                  //saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);
               }
         });
         saveToStorage('todo-app-main-$@#&*(!?@$%-active',activeTasks);
@@ -223,8 +221,6 @@ function updateTask(event){
         completedTasks.forEach((task)=>{
               if(task.taskId===event.currentTarget.parentElement.id){
                   task.task = event.currentTarget.value;
-                  //localStorage.setItem("completed-tasks", JSON.stringify(completedTasks)); 
-                  //saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);
               }
         });
         saveToStorage('todo-app-main@!#$%^&*(#$%@!^%-completed',completedTasks);
@@ -250,10 +246,9 @@ function setRemoveChecked(event){
             
         }
     });
-    //localStorage.setItem('tasks', JSON.stringify(taskData));
     saveToStorage('todo-app-main-*&*=^^&*@%$!?-tasks',taskData);
     //displays the number of active tasks
-    const activeArr= taskData.filter(isNotChecked);
+    const activeArr= taskData.filter(isNotChecked);                       //savetostarge (activetasks)
     vars.itemsleft.textContent = activeArr.length;
 }
 
@@ -361,7 +356,7 @@ const updateTaskContainer = (data) => {
     vars.itemsleft.textContent = activeArr.length;
 
 
-    let which; let whichStyle;
+    let which; 
     vars.tasksdiv.innerHTML='';
     if(data){
       data.forEach(
@@ -379,7 +374,7 @@ const updateTaskContainer = (data) => {
                               <label class='visually-hidden' for="q${taskId}">Check or uncheck task</label>
                               <label class='visually-hidden' for='x${taskId}'>Enter a task</label>
                               <textarea onchange='updateTask(event)' class="padding-half" id='x${taskId}'>${task}</textarea>
-                              <button onclick='deleteTask(event)' type='button' class='delete-task btn transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
+                              <button aria-label='delete this task'  onclick='deleteTask(event)' type='button' class='delete-task btn transparent-bg'><svg  class='cross' xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path fill="#494C6B" fill-rule="evenodd" d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"/></svg></button>
                           </div>
                           <hr class='bottom-hr'>
                       </div>
@@ -471,6 +466,7 @@ const addlisteners=()=>{
      }));
      vars.reset.addEventListener('click',()=>{
          clearLocalStorage();
+         location.reload();
      });
      vars.newTaskTextArea.addEventListener('focus',()=>{
          vars.newTaskTextArea.placeholder='';
@@ -478,7 +474,8 @@ const addlisteners=()=>{
      vars.newTaskTextArea.addEventListener('keydown', (event) => {
           vars.newTaskTextArea.placeholder='';
           if (event.key === 'Enter') {
-             vars.newTaskTextArea.setSelectionRange(0,0);
+             //textarea placeholder length = 20.
+             vars.newTaskTextArea.setSelectionRange(0,20);
           
           }
      });
