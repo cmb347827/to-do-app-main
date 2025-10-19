@@ -1,36 +1,7 @@
 
 
- .display-flex{
-      display:flex;
-  }
-  .direction-column{
-     flex-direction:column;
-  }
-  .order-0{
-      order:0;
-  }
-  .align-items-flex-start{
-      align-items:flex-start;
-  }
-  .align-items-center{
-      align-items:center;
-  }
-  .justify-content-center{
-      justify-content:center;
-  }
-  .justify-content-space-between{
-      justify-content: space-between;
-  }
-  .justify-content-space-around{
-      justify-content:space-around;
-  }
-  .colRow{
-      flex-direction:column;
-      @media screen and (min-width:52.31em){                    
-            flex-direction:row;
-      }
-  }
-
+ @use 'flexgrid';
+  
 
 
 $light-colors: (
@@ -76,16 +47,73 @@ $fallback-colors-dark: (
 @mixin padding($args...) {
   padding: $args;
 }
-.show-error{
-  position:relative;
-  left:0;
-  color:red;
 
+
+//specficity 0,0,0
+*{
+  box-sizing: inherit;
+}
+//specificty 0,0,1
+html{
+  box-sizing: border-box; 
+}
+
+::before,
+::after {
+  box-sizing: inherit;
+}
+body{
+  
+  font: {
+    //default 16 px/1rem.
+    size: 1.2rem;
+    weight: 400;
+    
+  }
 }
 h1{
    font-size: 2em;
     padding:0;
    margin:0;
+}
+textarea{
+    width: 100%;
+    margin:0;
+    padding: 0.5em;
+    @media screen and(min-width: 48em){
+        padding:1em;
+    }
+}
+button{
+    background-color: transparent;
+    border:none;
+}
+hr{
+    padding:0;
+    margin:0;
+      
+}  
+          
+ul li{
+    list-style-type: none;
+}
+button{
+    @include font-color(map-get($dark-colors, Light Grayish Blue1),nth($fallback-colors-dark,3));
+    &:hover{
+        @include font-color(map-get($dark-colors, Light Grayish Blue2),nth($fallback-colors-dark,4));
+    }
+}
+
+
+//specicifty 0,1,0
+.mobile-clear{
+    display:block;
+}
+.show-error{
+  position:relative;
+  left:0;
+  color:red;
+
 }
 .hide-error{
    display:none;
@@ -105,32 +133,79 @@ h1{
 .text-uppercase{
    text-transform:uppercase;
 }
-//see https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
-.visually-hidden:not(:focus):not(:active) {
-  clip: rect(0 0 0 0); 
-  clip-path: inset(50%);
-  height: 0.0625em;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap; 
-  width: 0.0625em;
-}
-textarea{
-    width: 100%;
-    margin:0;
-    padding: 0.5em;
-    @media screen and(min-width: 48em){
-        padding:1em;
-    }
-}
-button{
-    background-color: transparent;
-    border:none;
-}
+
 .padding-half{
    padding:0.5em 0;
 
 }
+.attribution {
+    font-size: 0.625em;
+    text-align: center;
+}
+.top-z-index{
+  //needed for z-index.
+  position: relative;
+  z-index: 1;
+  opacity:1;
+}
+.decorative-circle{
+  width:1.875em;
+  height: 1.875em;
+  border: 0.0625em solid gray;
+  border-radius: 50%;
+  margin: 0.5em 0em 0em 0.5em;
+}
+.dragging{
+     background-color:pink;
+}
+.grayish-font{
+    color: map-get($dark-colors, Light Grayish Blue1);
+}
+.container-enter-task{
+    margin-bottom: 3em;
+    padding: 0.5em;
+}
+          
+.article-body,.article-header{
+  width: 90%;
+  max-width: 62em;
+  @include margin(0 auto);
+  padding:0;
+  
+}
+.article-header{
+  padding-top: 1em;
+  height: 18rem;
+}
+@media screen and (min-width: 48em) {
+    .desktop-clear  { display: block; }
+    .mobile-clear { display: none; }
+}
+.checkbox-round {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 0.0625em solid #ddd;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    &:hover{
+        border-radius: 50em;
+        border: 2px solid transparent;
+    }
+}     
+.article-body{
+  position:relative;
+  top:-9rem;
+  .task,textarea,ul {
+    border:none;
+  }
+}
+
+
 
 .dark{
         @include bg-color(map-get($dark-colors,Very Dark Grayish Blue2),nth($fallback-colors-dark,7));
@@ -293,117 +368,20 @@ input{
   }
 }
 
+          
 
-html{
-  box-sizing: border-box; 
+      
+    
+
+//see https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
+.visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(50%);
+  height: 0.0625em;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 0.0625em;
 }
-*,
-::before,
-::after {
-  box-sizing: inherit;
-}
-body{
+
   
-  font: {
-    //default 16 px/1rem.
-    size: 1.2rem;
-    weight: 400;
-    
-  }
-}
-.top-z-index{
-  //needed for z-index.
-  position: relative;
-  z-index: 1;
-  opacity:1;
-}
-.decorative-circle{
-  width:1.875em;
-  height: 1.875em;
-  border: 0.0625em solid gray;
-  border-radius: 50%;
-  margin: 0.5em 0em 0em 0.5em;
-}
-
-.dragging{
-     background-color:pink;
-}
-main{ 
-      .mobile-clear{
-        display:block;
-      }
-      @media screen and (min-width: 48em) {
-         .desktop-clear  { display: block; }
-         .mobile-clear { display: none; }
-      }
-      .grayish-font{
-        color: map-get($dark-colors, Light Grayish Blue1);
-      }
-      article{
-          .container-enter-task{
-             margin-bottom: 3em;
-             padding: 0.5em;
-          }
-          padding:0;
-          .article-body,.article-header{
-            width: 90%;
-            max-width: 62em;
-            @include margin(0 auto);
-            padding:0;
-            
-          }
-          .article-header{
-            padding-top: 1em;
-            height: 18rem;
-          }
-          .article-body{
-            position:relative;
-            top:-9rem;
-            .task,textarea,ul {
-              border:none;
-            }
-            button{
-              @include font-color(map-get($dark-colors, Light Grayish Blue1),nth($fallback-colors-dark,3));
-              &:hover{
-                 @include font-color(map-get($dark-colors, Light Grayish Blue2),nth($fallback-colors-dark,4));
-              }
-            }
-            .checkbox-round {
-              width: 1.3em;
-              height: 1.3em;
-              background-color: white;
-              border-radius: 50%;
-              vertical-align: middle;
-              border: 0.0625em solid #ddd;
-              appearance: none;
-              -webkit-appearance: none;
-              outline: none;
-              cursor: pointer;
-              &:hover{
-                  border-radius: 50em;
-                  border: 2px solid transparent;
-              }
-            }
-            
-          }
-          
-          hr{
-            padding:0;
-            margin:0;
-            
-          }
-         
-          
-          ul li{
-              list-style-type: none;
-          }
-      }
-    
-}
-
-
-
-  .attribution {
-    font-size: 0.625em;
-    text-align: center;
-  }
