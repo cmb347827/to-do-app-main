@@ -218,11 +218,6 @@ textarea {
   }
 }
 
-button {
-  background-color: transparent;
-  border: none;
-}
-
 hr {
   padding: 0;
   margin: 0;
@@ -233,6 +228,8 @@ ul li {
 }
 
 button {
+  background-color: transparent;
+  border: none;
   color: LightSteelBlue;
   color: hsl(234deg, 39%, 85%);
 }
@@ -463,18 +460,18 @@ button:hover {
 .light .checkbox-round:hover {
   background: linear-gradient(white, white) padding-box, linear-gradient(hsl(192deg, 100%, 67%), hsl(280deg, 87%, 65%)) border-box;
 }
-.light .cross {
-  filter: invert(99%) sepia(49%) saturate(35%) hue-rotate(192deg) brightness(117%) contrast(96%);
-}
-.light .padding-half:hover .cross {
-  filter: brightness(0) saturate(100%) invert(5%) sepia(5%) saturate(6774%) hue-rotate(146deg) brightness(95%) contrast(104%);
-}
 .light .css-reset {
   color: darkgray;
   border: 0.125em solid darkgray;
 }
 .light .attribution a, .light .attribution span {
   color: hsl(236deg, 9%, 61%);
+}
+.light .cross {
+  filter: invert(99%) sepia(49%) saturate(35%) hue-rotate(192deg) brightness(117%) contrast(96%);
+}
+.light .padding-half:hover .cross {
+  filter: brightness(0) saturate(100%) invert(5%) sepia(5%) saturate(6774%) hue-rotate(146deg) brightness(95%) contrast(104%);
 }
 
 @-webkit-keyframes strike {

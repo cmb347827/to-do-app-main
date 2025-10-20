@@ -84,10 +84,7 @@ textarea{
         padding:1em;
     }
 }
-button{
-    background-color: transparent;
-    border:none;
-}
+
 hr{
     padding:0;
     margin:0;
@@ -98,6 +95,8 @@ ul li{
     list-style-type: none;
 }
 button{
+    background-color: transparent;
+    border:none;
     @include font-color(map-get($dark-colors, Light Grayish Blue1),nth($fallback-colors-dark,3));
     &:hover{
         @include font-color(map-get($dark-colors, Light Grayish Blue2),nth($fallback-colors-dark,4));
@@ -311,14 +310,7 @@ button{
                 linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
             }
         }
-       .cross{
-           filter: invert(99%) sepia(49%) saturate(35%) hue-rotate(192deg) brightness(117%) contrast(96%);
-       }
-      .padding-half:hover{
-          .cross{
-            filter:brightness(0) saturate(100%) invert(5%) sepia(5%) saturate(6774%) hue-rotate(146deg) brightness(95%) contrast(104%);
-          }
-       }
+       
       .css-reset{
          color: darkgray;
          border:  0.125em solid darkgray;
@@ -326,6 +318,14 @@ button{
       .attribution a,.attribution span {
         color: map-get($light-colors, Dark Grayish Blue);
       }
+      .cross{
+           filter: invert(99%) sepia(49%) saturate(35%) hue-rotate(192deg) brightness(117%) contrast(96%);
+       }
+      .padding-half:hover{
+          .cross{
+            filter:brightness(0) saturate(100%) invert(5%) sepia(5%) saturate(6774%) hue-rotate(146deg) brightness(95%) contrast(104%);
+          }
+       }
 }
 
 
