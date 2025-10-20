@@ -361,6 +361,22 @@ button:hover {
   background-color: Indigo;
   background-color: hsl(237deg, 14%, 26%);
 }
+.dark header {
+  background: url(./images/bg-mobile-dark.jpg) top center/100% 100% no-repeat;
+}
+@media screen and (min-width: 48em) {
+  .dark header {
+    background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat;
+  }
+}
+.dark hr {
+  border-color: #717070;
+}
+.dark .css-tasks div, .dark .css-tasks input, .dark .css-tasks textarea {
+  background-color: hsl(233deg, 14%, 35%);
+  color: DarkSlateBlue;
+  color: hsl(0deg, 0%, 98%);
+}
 .dark .container-enter-task {
   background-color: hsl(233deg, 14%, 35%);
 }
@@ -372,11 +388,6 @@ button:hover {
   color: hsl(0deg, 0%, 98%);
 }
 .dark .container-enter-task textarea, .dark .container-enter-task ::placeholder {
-  color: DarkSlateBlue;
-  color: hsl(0deg, 0%, 98%);
-}
-.dark .css-tasks div, .dark .css-tasks input, .dark .css-tasks textarea {
-  background-color: hsl(233deg, 14%, 35%);
   color: DarkSlateBlue;
   color: hsl(0deg, 0%, 98%);
 }
@@ -394,9 +405,6 @@ button:hover {
   color: white;
   border: 2px solid white;
 }
-.dark hr {
-  border-color: #717070;
-}
 .dark .attribution a, .dark .attribution span {
   color: hsl(236deg, 33%, 92%);
 }
@@ -406,18 +414,22 @@ button:hover {
 .dark .padding-half:hover .cross {
   filter: brightness(0) saturate(100%) invert(74%) sepia(100%) saturate(3%) hue-rotate(232deg) brightness(107%) contrast(102%);
 }
-.dark header {
-  background: url(./images/bg-mobile-dark.jpg) top center/100% 100% no-repeat;
-}
-@media screen and (min-width: 48em) {
-  .dark header {
-    background: url(./images/bg-desktop-dark.jpg) top center/100% 100% no-repeat;
-  }
-}
 
 .light {
   background-color: DarkSlateBlue;
   background-color: hsl(0deg, 0%, 98%);
+}
+.light header {
+  background: url(./images/bg-mobile-light.jpg) top center/100% 100% no-repeat;
+}
+@media screen and (min-width: 48em) {
+  .light header {
+    background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat;
+  }
+}
+.light hr {
+  border: none;
+  border-bottom: 0.0625em solid rgb(219, 219, 219);
 }
 .light .container-enter-task {
   background-color: #f1f2f8;
@@ -457,24 +469,12 @@ button:hover {
 .light .padding-half:hover .cross {
   filter: brightness(0) saturate(100%) invert(5%) sepia(5%) saturate(6774%) hue-rotate(146deg) brightness(95%) contrast(104%);
 }
-.light hr {
-  border: none;
-  border-bottom: 0.0625em solid rgb(219, 219, 219);
-}
 .light .css-reset {
   color: darkgray;
   border: 0.125em solid darkgray;
 }
 .light .attribution a, .light .attribution span {
   color: hsl(236deg, 9%, 61%);
-}
-.light header {
-  background: url(./images/bg-mobile-light.jpg) top center/100% 100% no-repeat;
-}
-@media screen and (min-width: 48em) {
-  .light header {
-    background: url(./images/bg-desktop-light.jpg) top center/100% 100% no-repeat;
-  }
 }
 
 @-webkit-keyframes strike {
@@ -504,9 +504,6 @@ input {
   margin-left: 1em;
   margin-right: 0.8em;
 }
-input:not(:checked) ~ textarea {
-  text-decoration: none;
-}
 input:checked {
   background-image: linear-gradient(hsl(192deg, 100%, 67%), hsl(280deg, 87%, 65%));
   cursor: pointer;
@@ -521,6 +518,9 @@ input:checked ~ textarea {
     -webkit-animation: strike 5s linear;
             animation: strike 5s linear;
   }
+}
+input:not(:checked) ~ textarea {
+  text-decoration: none;
 }
 input:checked:after {
   content: "✔";
