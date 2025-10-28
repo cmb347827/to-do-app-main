@@ -71,7 +71,10 @@ Users should be able to:
   - removed jquery, comprehensive guide link etc
   - I validated the HTML file at 'https://validator.w3.org/#validate_by_upload' on 10/27/25 and got 'Document checking completed. No errors or warnings to show.'
     I validated the CSS file at 'https://jigsaw.w3.org/css-validator/validator.html.en#validate_by_upload' on 10/27/25 and got 'Congratulations! No Error Found.'
-    
+    Finally I used Lighthouse to evaluate my project on 10/27/25 , and for mobile my results were:
+     98 performance, and 100 for accessiblity , 100 for best practices, and 100 for seo.
+     for desktop the results were: 90 performance, 100 for accessibility , 100 for best practices, and 100 for seo.
+
 
 ### Continued development
 
