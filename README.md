@@ -69,6 +69,9 @@ Users should be able to:
   - When I ran lighthouse, it complained about 'render blocking request' errors.
   - On finding bugs in this app, I also removed bootstrap. Which all sounds simple, but this took a while. The bugs alone kept giving me errors , I think from what I remember , the loadfromstorage function.  I should add errors and fixes to the readme file from now on , as I go , I tend to add most at the end. 
   - removed jquery, comprehensive guide link etc
+  - I validated the HTML file at 'https://validator.w3.org/#validate_by_upload' on 10/27/25 and got 'Document checking completed. No errors or warnings to show.'
+    I validated the CSS file at 'https://jigsaw.w3.org/css-validator/validator.html.en#validate_by_upload' on 10/27/25 and got 'Congratulations! No Error Found.'
+    
 
 ### Continued development
 
